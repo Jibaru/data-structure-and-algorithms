@@ -56,7 +56,7 @@ a través de los métodos se modifican e imprime las coordenadas del punto */
 void UsaClasePunto()
 {
 	/* Declaración de un objeto usando la clase Punto */
-	Punto objPunto;
+	Punto objPunto();
 	float auxiliar;
 
 	auxiliar = 2.4;
