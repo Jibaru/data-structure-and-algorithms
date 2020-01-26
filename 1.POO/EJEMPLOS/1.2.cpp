@@ -4,6 +4,7 @@ manejo de los mismos. Además, en la sección pública se han definido
 métodos para accesar, modificar e imprimir los atributos privados
 */
 #include <iostream>
+#include <conio.h>
 using namespace std;
 
 class Punto
@@ -56,7 +57,7 @@ a través de los métodos se modifican e imprime las coordenadas del punto */
 void UsaClasePunto()
 {
 	/* Declaración de un objeto usando la clase Punto */
-	Punto objPunto();
+	Punto objPunto;
 	float auxiliar;
 
 	auxiliar = 2.4;
@@ -80,4 +81,10 @@ void UsaClasePunto()
 	auxiliar = objPunto.ObtenerCoordY();
 	cout << "La coordenada Y es: " << auxiliar << endl;
 	
+}
+
+int main(){
+	UsaClasePunto();
+	getch();
+	return 0;
 }

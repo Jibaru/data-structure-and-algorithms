@@ -1,6 +1,11 @@
 /* La clase triángulo define un triángulo por medio de la longitud de su
 base y de su altura. Además, contiene un método para calcular su área y
 otro para imprimir sus atributos. */
+
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
 class Triangulo
 {
 public:
@@ -30,11 +35,20 @@ calcula e imprime su área */
 void usaClaseTriangulo()
 {
 	/* Declaración de un objeto de tipo Triángulo */
-	Triángulo objTriangulo;
+	Triangulo objTriangulo;
+	objTriangulo.base = 10.0;
+	objTriangulo.altura = 20.0;
 	float area;
 
 	objTriangulo.imprimeAtributos();
 
 	area = objTriangulo.calcularArea();
-	cout << "Área del triángulo: " << area << endl;
+	cout << "Area del triangulo: " << area << endl;
+}
+
+int main(){
+
+	usaClaseTriangulo();
+	getch();
+	return 0;
 }

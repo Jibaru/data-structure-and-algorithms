@@ -1,6 +1,8 @@
 /* Se define la clase Fecha con los atributos Día, Mes y Año.
 Se incluye un constructor por omisión (sin parámetros) y uno con parámetros.
 Este último permite dar un valor inicial a los atributos cuando se crea un objeto. */ 
+#include <conio.h>
+
 class Fecha {
 private:
 	int Dia, Mes, Anio; 
@@ -31,5 +33,12 @@ void UsaConstructores ()
 	asignarán los valores 18, 05 y 2006 para sus atributos Día, Mes y Año respectivamente. */
 	Fecha Cumpleanios(18, 05, 2006);
 	
+}
+
+int main(){
+	UsaConstructores();
+
+	getch();
+	return 0;
 }
 

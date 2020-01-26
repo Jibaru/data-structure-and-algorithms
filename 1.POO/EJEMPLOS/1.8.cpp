@@ -2,7 +2,10 @@
 Además, contiene métodos para calcular su área, actualizar e imprimir sus atributos. 
 Para la clase Triangulo se definieron dos constructores: uno por omisión y otro con parámetros. */
 #include <iostream>
-using namespace std; 
+#include <conio.h>
+using namespace std;
+
+
 class Triangulo {
 private:
 	float Base, Altura; 
@@ -34,12 +37,12 @@ float Triangulo::CalculaArea()
 /* Método que despliega los valores de los atributos. */
 void Triangulo::ImprimeAtributos()
 {
-	cout << "Base: " << Base << endl: 
+	cout << "Base: " << Base << endl;
 	cout << "Altura: " << Altura << endl;
 }
 
 /* Método que modifica los valores de la base y de la altura de un triángulo. */
-void Triangulo::ActualizaAtributos (float B, float A) 
+void Triangulo::ActualizaAtributos (float B, float A)
 {
 	Altura = A; 
 	Base   = B;	
@@ -65,4 +68,11 @@ void UsaClaseTriangulo()
 	Triangulo ObjT2(2.8, 9.0);
 	ObjT1.ImprimeAtributos();
 	ObjT2.ImprimeAtributos();
+}
+
+int main(){
+
+	UsaClaseTriangulo();
+	getch();
+	return 0;
 }

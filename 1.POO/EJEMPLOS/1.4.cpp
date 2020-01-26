@@ -78,14 +78,14 @@ void UsaClaseCliente()
 	/* Se obtiene el saldo del cliente, asumiendo que previamente le fue"
 	asignado un valor.*/
 
-	SaldoCli= ObjClien2.0btenerSaldo();
+	SaldoCli = ObjClien2.ObtenerSaldo();
 	cout<< "El saldo del cliente es: " << SaldoCli << endl;
 	/* Se hace un retiro de la cuenta de cheques de un cliente: se
 	verifica que tenga una cuenta de cheques (1), en cuyo caso se
 	efectúa el retiro. */
 
 	if (ObjClien1.ObtenerTipoCta() == 1) 
-		if (ObjClien1 .HacerRetiro(150,0))
+		if (ObjClien1.HacerRetiro(150.0))
 			cout<<"\nRetiro realizado con éxito.Cuenta actualizada.\n"; 
 		else
 			cout<<"\nNo tiene saldo suficiente para realizar ese retiro.\n";
@@ -95,4 +95,10 @@ void UsaClaseCliente()
 	/* Se hace un depósito en la cuenta de un cliente :se registra el
 	nuevo saldo. */
 	ObjClien2.HacerDeposito(50000.00);
+}
+
+int main(){
+
+	UsaClaseCliente();
+	return 0;
 }
