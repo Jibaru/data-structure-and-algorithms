@@ -3,12 +3,18 @@ y la función main. Analice cuidadosamente las siguientes declaraciones y
 diga si los enunciados que aparecen después del código son verdaderos o falsos.
 
 a) La declaración del objeto MiGato es correcta. Justifique su respuesta.
+Si porque llama al constructor Gato con los argumentos correctos
 b) La declaración del objeto TuGato es incorrecta. Justifique su respuesta.
+Si, porque no existe un constructor vacío para Gato
 c) La impresión del valor del atributo Nombre del objeto MiGato es correcta. Justifique su respuesta.
+Si, el método RegresaNombre() devuelve el atributo nombre del objeto
 d) La impresión del valor del atributo MarcaAümento del objeto MiGato es correcta. Justifique su respuesta.
+Si, porque esta llamando directamente al atributo
 e) La impresión del valor del atributo Edad del objeto MiGato es correcta. Justifique su respuesta.
+No, porque el atributo edad es privado
 j) El método cambiaEdad está incorrectamente asociado al objeto MiGato.
-
+Si, el método cambiaEdad no está correctamente asociado al objeto MiGato puesto que es 
+un método de clase y no de instancia.
 */
 #include <iostream>
 using namespace std;
