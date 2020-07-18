@@ -7,12 +7,12 @@ que obtuve con el libro Estructura de datos orienta a objetos: Algoritmos con C+
 Todos los ejemplos y ejercicios están separados por carpetas en las que se 
 almacena lo realizado en cada uno de los capítulos, respectivamente.
 
-## Libro usado
+## Libro usado 📖
 Estructura de datos orientada a objetos: Algoritmos con C++
 Silvia Guardati Buemo - Instituto Tecnológico Autónomo de México
 Editorial Pearson 2007 - Primera Edición
 
-## Índices
+## Índices 📌
 - 1. Introducción a la POO
 - 2. Herencia y amistad
 - 3. Sobrecarga, plantillas y polimorfismo
