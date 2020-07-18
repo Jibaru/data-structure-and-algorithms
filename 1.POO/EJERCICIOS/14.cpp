@@ -7,3 +7,31 @@ cada caja (considere 1/2 cm para pegar los diferentes lados de cada cara del cub
 de cartón.
 
 */
+
+#include <iostream>
+#include "13.cpp"
+
+#define EXTRA 0.5
+
+using namespace std;
+
+float calcularCartonUsado(Cubo &c){
+	return c.area() + (0.5 + c.obtenerLado())* 6;
+}
+
+int main(){
+	
+	int N = 4, totalPliegos;
+	float areaPliego = 50, areaUsada = 0;
+
+	for(int i = 0; i < N; i++){
+		Cubo cubo((float)i+5, "carton");
+		areaUsada += calcularCartonUsado(cubo);
+	}
+
+	cout << "Total de pliegos: " << ((int)areaUsada/areaPliego )<< endl;
+	cout << "Area usada: " << areaUsada << endl;
+
+	return 0;
+}
+
