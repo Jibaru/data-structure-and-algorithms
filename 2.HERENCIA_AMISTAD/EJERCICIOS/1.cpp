@@ -45,6 +45,8 @@ protected:
 public:
     Felino(char*, char*, char*, int, char*);
     void cambiarNombreCirco(char*);
+    void imprimirDieta();
+    void imprimirAnioLugar();
     void imprimirDatos();
 };
 
@@ -57,6 +59,14 @@ Felino::Felino(char* nom, char* raz, char* diet, int anioNac, char*lugarNac):
 
 void Felino::cambiarNombreCirco(char* nomCirco) {
     nombreCirco = nomCirco;
+}
+
+void Felino::imprimirDieta() {
+    cout << "Dieta: " << dieta << endl;
+}
+
+void Felino::imprimirAnioLugar() {
+    cout << "Anio y lugar de Nac: " << anioNac << ", " << lugarNac << endl;
 }
 
 void Felino::imprimirDatos() {
@@ -94,6 +104,12 @@ int main(){
 
     Felino EstrellaCirco("Estrella circo", "Tigre", "Carne cruda", 1997, "Los Angeles");
     GatoDomestico Minino("Minimo", "Cuto", "Ricocat", 2001, "Peru");
+
+    Minino.imprimirDieta();
+    EstrellaCirco.imprimirDieta();
+
+    Minino.imprimirAnioLugar();
+    EstrellaCirco.imprimirAnioLugar();
 
     EstrellaCirco.imprimirDatos();
     Minino.imprimirDatos();
