@@ -47,6 +47,7 @@ public:
     void cambiarNombreCirco(char*);
     void imprimirDieta();
     void imprimirAnioLugar();
+    void imprimirRaza();
     void imprimirDatos();
 };
 
@@ -55,6 +56,7 @@ Felino::Felino(char* nom, char* raz, char* diet, int anioNac, char*lugarNac):
     nombre = nom;
     raza = raz;
     dieta = diet;
+    nombreCirco = NULL;
 }
 
 void Felino::cambiarNombreCirco(char* nomCirco) {
@@ -69,13 +71,17 @@ void Felino::imprimirAnioLugar() {
     cout << "Anio y lugar de Nac: " << anioNac << ", " << lugarNac << endl;
 }
 
+void Felino::imprimirRaza() {
+    cout << "Raza: " << raza << endl;
+}
+
 void Felino::imprimirDatos() {
     Mamifero::imprimirDatos();
     cout << "Nombre: " << nombre << endl;
     cout << "Raza: " << raza << endl;
     cout << "Dieta: " << dieta << endl;
     if(nombreCirco)
-        cout << "Nombre circo: " << endl; 
+        cout << "Nombre circo: " << nombreCirco << endl; 
 }
 
 class GatoDomestico : public Felino {
@@ -88,7 +94,9 @@ public:
 };
 
 GatoDomestico::GatoDomestico(char* nom, char* raz, char* diet, int anioNac, char*lugarNac):
-    Felino(nom, raz, diet, anioNac, lugarNac) {}
+    Felino(nom, raz, diet, anioNac, lugarNac) {
+    nombreDuenio = NULL;
+}
 
 void GatoDomestico::cambiarNomDuenio(char* nomDue){
     nombreDuenio = nomDue;
@@ -110,6 +118,13 @@ int main(){
 
     Minino.imprimirAnioLugar();
     EstrellaCirco.imprimirAnioLugar();
+
+    Minino.cambiarNomDuenio("Ignacio");
+
+    Minino.imprimirRaza();
+    EstrellaCirco.imprimirRaza();
+
+    EstrellaCirco.cambiarNombreCirco("Los 3 gatitos");
 
     EstrellaCirco.imprimirDatos();
     Minino.imprimirDatos();
