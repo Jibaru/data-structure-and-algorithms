@@ -139,28 +139,24 @@ int main() {
 	bdCarmen.imprimirDatos();
 
 	cout << "\nNueva carrera para Juan: ";
-	cin.ignore();
 	cin.getline(temp, 60);
 
 	alumnoJuan.cambiarCarrera(temp);
 	alumnoJuan.imprimirDatos();
 
 	cout << "Nueva carrera para Ana: ";
-	cin.ignore();
 	cin.getline(temp, 60);
 	
 	bdAna.cambiarCarrera(temp);
 	bdAna.imprimirDatos();
 	
 	cout << "Nuevo entrenador para Luis: ";
-	cin.ignore();
 	cin.getline(temp, 60);
 
 	deporLuis.cambiarEntrenador(temp);
 	deporLuis.imprimirDatos();
 
 	cout << "Nuevo entrenador para Carmen: ";
-	cin.ignore();
 	cin.getline(temp, 60);
 	bdCarmen.cambiarEntrenador(temp);
 	bdCarmen.imprimirDatos();
