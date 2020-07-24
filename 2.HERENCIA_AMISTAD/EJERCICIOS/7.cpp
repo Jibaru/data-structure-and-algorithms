@@ -7,3 +7,34 @@ d)	Actualizar el giro de una industria. Es decir, a un objeto tipo industria se 
 é) Actualizar el número de teléfono de cualquiera de los objetos declarados.
 
 */
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+class Vivienda {
+private:
+	char* telefono;
+	float metrosCuadrados;
+	char* direccion;
+public:
+	Vivienda(char*, float, char*);
+	void imprimir();
+};
+
+Vivienda::Vivienda(char* telf, float metCuad, char* direc)
+{
+	telefono = new char[strlen(telf) + 1];
+	direccion = new char[strlen(direc) + 1];
+	strcpy(telefono, telf);
+	strcpy(direccion, direc);
+	metrosCuadrados = metCuad;
+}
+
+void Vivienda::imprimir()
+{
+	cout << "Telefono: " << telefono << endl;
+	cout << "Direccion: " << direccion << endl;
+	cout << "Metros Cuadrados: " << metrosCuadrados << endl;
+}
+
+class Residencial : public Vivienda {s}
