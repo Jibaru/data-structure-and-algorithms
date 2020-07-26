@@ -18,27 +18,6 @@ public:
     int EsMayor(Ejemplo1);
 };
 
-/* Declaración del método constructor. */
-Ejemplo2::Ejemplo2(int Num)
-{
-    Valor2= Num;
-}
-
-/* Método que despliega el valor del atributo de la clase Ejemplo2. */
-void Ejemplo2::Imprime()
-{
-    cout << "Valor del atributo: " << Valor2 << endl;
-}
-
-/* Método de la clase Ejemplo2. Este método es amigo de la clase Ejemplol,
-por lo que tendrá acceso a los miembros privados y/o protegidos de la 
-misma. */
-int Ejemplo2::EsMayor(Ejemplo1 Obj)
-{
-    if (Valor2 > Obj.Valor1) return 1;
-    else return 0;
-}
-
 /* Definición de la clase Ejemplo1. En esta clase, en la sección pública,
 se incluye la declaración de un método de la clase Ejemplo2 como método
 amigo, lo cual permite que este método tenga acceso a sus miembros 
@@ -75,4 +54,30 @@ void UsaMetodoAmigo()
         cout << "Obj2 es mayor que Obj1" << endl;
     else
         cout << "Obj2 no es mayor que Obj1" << endl;
+}
+/* Definición de Ejemplo2 */
+/* Declaración del método constructor. */
+Ejemplo2::Ejemplo2(int Num)
+{
+    Valor2= Num;
+}
+
+/* Método que despliega el valor del atributo de la clase Ejemplo2. */
+void Ejemplo2::Imprime()
+{
+    cout << "Valor del atributo: " << Valor2 << endl;
+}
+
+/* Método de la clase Ejemplo2. Este método es amigo de la clase Ejemplol,
+por lo que tendrá acceso a los miembros privados y/o protegidos de la 
+misma. */
+int Ejemplo2::EsMayor(Ejemplo1 Obj)
+{
+    if (Valor2 > Obj.Valor1) return 1;
+    else return 0;
+}
+
+int main(){
+    UsaMetodoAmigo();
+    return 0;
 }
