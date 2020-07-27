@@ -11,3 +11,45 @@ Calificación: T
 Constructor(es) 
 void Imprime()
 */
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+template <class T>
+class Materia {
+private:
+	char NombreMateria[64];
+	int Clave;
+	T Calificacion;
+public:
+	Materia();
+	Materia(char*, int, T);
+	void cambiaCalificacion(T);
+	void imprime();
+};
+
+template <class T>
+Materia<T>::Materia() {}
+
+template <class T>
+Materia<T>::Materia(char* nombre, int clave, T calif)
+{
+	strcpy(NombreMateria, nombre);
+	Clave = clave;
+	Calificacion = calif;
+}
+
+template <class T>
+void Materia<T>::imprime()
+{
+	cout << "\nMateria:\n";
+	cout << "Nombre: " << NombreMateria << endl;
+	cout << "Clave: " << Clave << endl;
+	cout << "Calificacion: " << Calificacion << endl;
+}
+
+template <class T>
+void Materia<T>::cambiaCalificacion(T calif)
+{
+	Calificacion = calif;
+}
