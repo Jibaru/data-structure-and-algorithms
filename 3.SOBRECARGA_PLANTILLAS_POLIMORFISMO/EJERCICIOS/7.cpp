@@ -15,6 +15,9 @@ void CambiaDepto(char[])
 void CambiaMat(T)
 void Imprime()
 */
+#ifndef _PROFESOR_
+#define _PROFESOR_
+
 #include <iostream>
 #include <string.h>
 using namespace std;
@@ -66,3 +69,5 @@ void Profesor<T>::Imprime()
 	cout << "Departamento: " << Departamento << endl;
 	cout << "Materia a cargo: " << MateriaACargo << endl << endl;
 }
+
+#endif
