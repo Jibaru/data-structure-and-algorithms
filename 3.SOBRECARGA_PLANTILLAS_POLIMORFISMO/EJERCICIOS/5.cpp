@@ -11,6 +11,9 @@ Calificación: T
 Constructor(es) 
 void Imprime()
 */
+#ifndef _MATERIA_
+#define _MATERIA_
+
 #include <iostream>
 #include <string.h>
 using namespace std;
@@ -26,6 +29,8 @@ public:
 	Materia(char*, int, T);
 	void cambiaCalificacion(T);
 	void imprime();
+	template <class M>
+	friend ostream& operator<<(ostream&, Materia<M>&);
 };
 
 template <class T>
@@ -53,3 +58,14 @@ void Materia<T>::cambiaCalificacion(T calif)
 {
 	Calificacion = calif;
 }
+
+template <class M>
+ostream& operator<<(ostream& salida, Materia<M>& obj) {
+	salida << "\nMateria:\n";
+	salida << "Nombre: " << obj.NombreMateria << endl;
+	salida << "Clave: " << obj.Clave << endl;
+	salida << "Calificacion: " << obj.Calificacion << endl;
+	return salida;
+}
+
+#endif
