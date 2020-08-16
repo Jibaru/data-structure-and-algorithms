@@ -21,6 +21,8 @@ public:
 	int buscar(int);
 	void lectura();
 	void imprime();
+	friend float calculoPromedio(ArregloEnteros&);
+	friend int totalMayoresAPromedio(ArregloEnteros&);
 };
 
 ArregloEnteros::ArregloEnteros()
@@ -117,6 +119,26 @@ void ArregloEnteros::imprime()
 	cout << endl;
 }
 
+float calculoPromedio(ArregloEnteros& arr)
+{
+	int indice = 0, suma = 0;
+	for(; indice < arr.tam; indice++)
+		suma += arr.elementos[indice];
+
+	return (float) (suma / arr.tam);
+}
+
+int totalMayoresAPromedio(ArregloEnteros& arr)
+{
+	int indice = 0, total = 0;
+	float promedio = calculoPromedio(arr);
+	for(; indice < arr.tam; indice++)
+		if(arr.elementos[indice] > promedio)
+			total++;
+	
+	return total;
+}
+
 void usaArregloEnteros()
 {
 	ArregloEnteros arr = ArregloEnteros();
@@ -155,11 +177,8 @@ void usaArregloEnteros()
 	else
 		cout << "Elemento no encontrado" << endl;
 
-}
 
-int main() 
-{
-	usaArregloEnteros();
-	return 0;
+	cout << "Promedio:" << calculoPromedio(arr) << endl;
+	cout << "Total mayores a prom: "<< totalMayoresAPromedio(arr) << endl;
 }
 
