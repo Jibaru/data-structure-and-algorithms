@@ -17,10 +17,12 @@ public:
     ArreParal();
     int	InsertaOrdenado(int , T);
     int	InsertaDesordenado(T);
-    void Elimina(int); int	BuscaOrdenado(T);
+    void Elimina(int);
+    int	BuscaOrdenado(T);
     int	BuscaDesordenado(T);
     T RegresaValor(int);
     int	RegresaTamano();
+    int ActualizaValor(int, T);
     template <class M>
     friend istream &operator>>(istream &, ArreParal<M> &);
     template <class M>
@@ -141,6 +143,17 @@ template <class T>
 int ArreParal<T>::RegresaTamano()
 {
     return Tam;
+}
+
+template <class T>
+int ArreParal<T>::ActualizaValor(int Indice, T valor) {
+    int Resultado = 1;
+    if(Indice > Tam) {
+        Resultado = -1;
+    } else {
+        Datos[Indice] = valor;
+    }
+    return Resultado;
 }
 
 /* Definición de la sobrecarga del operador >>. Por medio de este 
