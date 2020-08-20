@@ -23,6 +23,7 @@ public:
     T RegresaValor(int);
     int	RegresaTamano();
     int ActualizaValor(int, T);
+    T MayorValor();
     template <class M>
     friend istream &operator>>(istream &, ArreParal<M> &);
     template <class M>
@@ -154,6 +155,22 @@ int ArreParal<T>::ActualizaValor(int Indice, T valor) {
         Datos[Indice] = valor;
     }
     return Resultado;
+}
+
+template <class T>
+T ArreParal<T>::MayorValor() 
+{
+    T mayor;
+    if(Tam > 0) { 
+        mayor = Datos[0];
+        for(int i = 0; i < Tam; i++) {
+            if(mayor < Datos[i]) {
+                mayor = Datos[i];
+            }
+        }
+    }
+
+    return mayor;
 }
 
 /* Definición de la sobrecarga del operador >>. Por medio de este 
