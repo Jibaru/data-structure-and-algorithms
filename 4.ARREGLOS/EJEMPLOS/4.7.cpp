@@ -26,6 +26,7 @@ public:
     T MinimoColumna(int);
     T MinimoRenglon(int);
     T RegresaDato(int, int);
+    ArregloBidimensional<T> operator+(ArregloBidimensional&);
 };
 
 /* Declaración del método constructor por omisión. Inicializa el 
@@ -60,7 +61,7 @@ void ArregloBidimensional<T>::Lectura()
     {
         for (Col= 0; Col < NumCol; Col++)
         {
-            cout << "\n[" << Ren << "][" << Col <<"Ingrese dato: ";
+            cout << "\n[" << Ren << "][" << Col << "]. Ingrese dato: ";
             cin >> Datos[Ren][Col];
         }
     }
@@ -197,4 +198,16 @@ template <class T>
 T ArregloBidimensional<T>::RegresaDato(int Ren, int Col)
 {
     return Datos[Ren][Col];
+}
+
+template <class T>
+ArregloBidimensional<T> ArregloBidimensional<T>::operator+(ArregloBidimensional<T>& otro)
+{
+    ArregloBidimensional<T> nuevo(NumRen, NumCol);
+    for(int i = 0; i < NumCol; i++) {
+        for(int j = 0; j < NumRen; j++) {
+            nuevo.Datos[i][j] = Datos[i][j] + otro.Datos[i][j];
+        }
+    }
+    return nuevo;
 }
