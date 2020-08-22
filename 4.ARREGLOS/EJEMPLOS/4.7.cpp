@@ -27,6 +27,7 @@ public:
     T MinimoRenglon(int);
     T RegresaDato(int, int);
     ArregloBidimensional<T> operator+(ArregloBidimensional&);
+    ArregloBidimensional<T> operator*(ArregloBidimensional&);
 };
 
 /* Declaración del método constructor por omisión. Inicializa el 
@@ -200,6 +201,9 @@ T ArregloBidimensional<T>::RegresaDato(int Ren, int Col)
     return Datos[Ren][Col];
 }
 
+/*Sobreescritura del operador + 
+Suma los elementos del arregloBidimensional con otro y devuelve un nuevo 
+ArregloBidimensional*/
 template <class T>
 ArregloBidimensional<T> ArregloBidimensional<T>::operator+(ArregloBidimensional<T>& otro)
 {
@@ -207,6 +211,30 @@ ArregloBidimensional<T> ArregloBidimensional<T>::operator+(ArregloBidimensional<
     for(int i = 0; i < NumCol; i++) {
         for(int j = 0; j < NumRen; j++) {
             nuevo.Datos[i][j] = Datos[i][j] + otro.Datos[i][j];
+        }
+    }
+    return nuevo;
+}
+
+/*Sobreescritura del operador * 
+Multiplica los elementos del arregloBidimensional con otro y devuelve un nuevo 
+ArregloBidimensional*/
+template <class T>
+ArregloBidimensional<T> ArregloBidimensional<T>::operator*(ArregloBidimensional<T>& otro)
+{
+    ArregloBidimensional<T> nuevo(NumRen, otro.NumCol);
+    int suma = 0, r = 0;
+    for(int i = 0; i < NumRen; i++) {
+        for(int j = 0; j < otro.NumCol; j++) {
+
+            while(r < NumCol) {
+                suma += Datos[i][r] * otro.Datos[r][j];
+                r++;
+            }
+
+            nuevo.Datos[i][j] = suma;
+            r = 0;
+            suma = 0;
         }
     }
     return nuevo;
