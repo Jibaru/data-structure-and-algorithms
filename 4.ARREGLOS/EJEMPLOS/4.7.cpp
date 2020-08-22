@@ -28,6 +28,7 @@ public:
     T RegresaDato(int, int);
     ArregloBidimensional<T> operator+(ArregloBidimensional&);
     ArregloBidimensional<T> operator*(ArregloBidimensional&);
+    void muestraDiagonal();
 };
 
 /* Declaración del método constructor por omisión. Inicializa el 
@@ -238,4 +239,18 @@ ArregloBidimensional<T> ArregloBidimensional<T>::operator*(ArregloBidimensional<
         }
     }
     return nuevo;
+}
+
+/*Método que muestra la diagonal del arreglo bidimensional*/
+template <class T>
+void ArregloBidimensional<T>::muestraDiagonal()
+{
+    for(int i = 0; i < NumRen; i++) {
+        for(int j = 0; j < NumCol; j++) {
+            if(i == j) {
+                cout << Datos[i][j] << " ";
+            }
+        }
+    }
+    cout << endl;
 }
