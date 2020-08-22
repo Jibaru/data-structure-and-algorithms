@@ -29,6 +29,7 @@ public:
     ArregloBidimensional<T> operator+(ArregloBidimensional&);
     ArregloBidimensional<T> operator*(ArregloBidimensional&);
     void muestraDiagonal();
+    T SumaDiagonal();
 };
 
 /* Declaración del método constructor por omisión. Inicializa el 
@@ -253,4 +254,22 @@ void ArregloBidimensional<T>::muestraDiagonal()
         }
     }
     cout << endl;
+}
+
+/*Método que suma los elementos de la diagonal
+del arreglo bidimensional*/
+template <class T>
+T ArregloBidimensional<T>::SumaDiagonal()
+{
+    T Suma = 0;
+
+    for(int i = 0; i < NumRen; i++) {
+        for(int j = 0; j < NumCol; j++) {
+            if(i == j) {
+                Suma += Datos[i][j];
+            }
+        }
+    }
+
+    return Suma;
 }
