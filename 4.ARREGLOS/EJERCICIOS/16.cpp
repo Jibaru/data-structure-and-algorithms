@@ -138,7 +138,8 @@ int main()
 {
 	Arreglo<SocioClub> socios = Arreglo<SocioClub>();
 	SocioClub socioTemp = SocioClub();
-	int opc, tam, i;
+	int opc, tam, i, pos, nroSocio;
+	char nuevoDom[60];
 	do {
 		opc = menuOpciones();
 		
@@ -154,6 +155,79 @@ int main()
 					socios.InsertaDesordenado(socioTemp);
 				}
 				
+				break;
+			}
+
+			case 2: {
+				tam = socios.tamanio();
+				for(i = 0; i < tam; i++) {
+					cout << "\nSocio " << i + 1 << ":" << endl;
+					socios.obtener(i).imprimirDatos();
+				}
+				break;
+			}
+
+			case 3: {
+				tam = socios.tamanio();
+				cout << "Socios con mas de 10 anios de antiguedad:" << endl;
+				for(i = 0; i < tam; i++) {
+					if(socios.obtener(i).regresaAnio() > 10) {
+						cout << "\nSocio " << i + 1 << ":" << endl;
+						socios.obtener(i).imprimirDatos();
+					}
+				}
+				break;
+			}
+
+			case 4: {
+				cout << "Posicion: ";
+				cin >> pos;
+
+				if(pos >= 0 && pos < socios.tamanio()) {
+					cout << "Nuevo domicilio: ";
+					cin.getline(nuevoDom, 60);
+
+					socios.obtener(pos).cambiaDomicilio(nuevoDom);
+				} else {
+					cout << "No existe dicho socio" << endl;
+				}
+				break;
+			}
+
+			case 5: {
+				cout << "Nro Socio: ";
+				cin >> nroSocio;
+				for(i = 0; i < tam; i++) {
+					if(socios.obtener(i).regresaNumeroSocio() == nroSocio) {
+						cout << "\nSocio " << i + 1 << ":" << endl;
+						socios.obtener(i).imprimirDatos();
+					}
+				}
+				break;
+			}
+
+			case 6: {
+				cin >> socioTemp;
+				socios.InsertaDesordenado(socioTemp);
+				break;
+			}
+
+			case 7: {
+				cout << "Posicion: ";
+				cin >> pos;
+
+				if(pos >= 0 && pos < socios.tamanio()) {
+					socioTemp = socios.obtener(pos);
+
+					socios.EliminaDesordenado(socioTemp);
+				} else {
+					cout << "No existe dicho socio" << endl;
+				}
+				break;
+			}
+
+			case 8: {
+				cout << "Proceso terminado" << endl;
 				break;
 			}
 		}

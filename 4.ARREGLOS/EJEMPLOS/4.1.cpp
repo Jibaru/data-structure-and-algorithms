@@ -19,6 +19,8 @@ public:
     int EliminaDesordenado(T);
     int BuscaDesordenado(T);
     void Escribe();
+    int tamanio();
+    T obtener(int);
 };
 
 /* Declaración del método constructor. Inicializa el número actual de 
@@ -132,4 +134,22 @@ void Arreglo<T>::Escribe()
     }
     else
         cout << "\n No hay elementos almacenados.";
+}
+
+/*
+Devuelve la cantidad de elementos
+*/
+template <class T>
+int Arreglo<T>::tamanio()
+{
+    return Tam;
+}
+
+/*
+Devuelve el elemento en la posición pos
+*/
+template <class T>
+T Arreglo<T>::obtener(int pos)
+{
+    return Datos[pos];
 }
