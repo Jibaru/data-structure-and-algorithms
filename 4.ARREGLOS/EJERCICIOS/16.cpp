@@ -162,7 +162,7 @@ int main()
 				tam = socios.tamanio();
 				for(i = 0; i < tam; i++) {
 					cout << "\nSocio " << i + 1 << ":" << endl;
-					socios.obtener(i).imprimirDatos();
+					(*socios.obtener(i)).imprimirDatos();
 				}
 				break;
 			}
@@ -171,9 +171,9 @@ int main()
 				tam = socios.tamanio();
 				cout << "Socios con mas de 10 anios de antiguedad:" << endl;
 				for(i = 0; i < tam; i++) {
-					if(socios.obtener(i).regresaAnio() > 10) {
+					if((*socios.obtener(i)).regresaAnio() > 10) {
 						cout << "\nSocio " << i + 1 << ":" << endl;
-						socios.obtener(i).imprimirDatos();
+						(*socios.obtener(i)).imprimirDatos();
 					}
 				}
 				break;
@@ -187,7 +187,7 @@ int main()
 					cout << "Nuevo domicilio: ";
 					cin.getline(nuevoDom, 60);
 
-					socios.obtener(pos).cambiaDomicilio(nuevoDom);
+					(*socios.obtener(pos)).cambiaDomicilio(nuevoDom);
 				} else {
 					cout << "No existe dicho socio" << endl;
 				}
@@ -198,9 +198,9 @@ int main()
 				cout << "Nro Socio: ";
 				cin >> nroSocio;
 				for(i = 0; i < tam; i++) {
-					if(socios.obtener(i).regresaNumeroSocio() == nroSocio) {
+					if((*socios.obtener(pos)).regresaNumeroSocio() == nroSocio) {
 						cout << "\nSocio " << i + 1 << ":" << endl;
-						socios.obtener(i).imprimirDatos();
+						(*socios.obtener(pos)).imprimirDatos();
 					}
 				}
 				break;
@@ -217,7 +217,7 @@ int main()
 				cin >> pos;
 
 				if(pos >= 0 && pos < socios.tamanio()) {
-					socioTemp = socios.obtener(pos);
+					socioTemp = (*socios.obtener(pos));
 
 					socios.EliminaDesordenado(socioTemp);
 				} else {
