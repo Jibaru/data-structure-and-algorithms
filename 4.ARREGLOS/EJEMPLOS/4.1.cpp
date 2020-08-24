@@ -20,7 +20,7 @@ public:
     int BuscaDesordenado(T);
     void Escribe();
     int tamanio();
-    T obtener(int);
+    T* obtener(int);
 };
 
 /* Declaración del método constructor. Inicializa el número actual de 
@@ -149,7 +149,7 @@ int Arreglo<T>::tamanio()
 Devuelve el elemento en la posición pos
 */
 template <class T>
-T Arreglo<T>::obtener(int pos)
+T* Arreglo<T>::obtener(int pos)
 {
-    return Datos[pos];
+    return &Datos[pos];
 }
