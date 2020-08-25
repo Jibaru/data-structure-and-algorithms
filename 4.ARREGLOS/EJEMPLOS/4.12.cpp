@@ -1,4 +1,5 @@
 #include <iostream>
+#define MAX 60
 using namespace std;
 
 /* Prototipo de la clase MatPocoDen para poder declararla como amiga 
@@ -67,7 +68,7 @@ tiene la matriz original y el total de elementos diferentes de cero.*/
 template <class T>
 class MatPocoDen {
 private:
-    Componente<T> Valores[30];
+    Componente<T> Valores[MAX];
     int TotRen, TotCol, TotVal;
 public:
     MatPocoDen();
@@ -77,6 +78,7 @@ public:
     void Imprime();
     T SumaCol(int Colum);
     void Escritura();
+    MatPocoDen<T> operator+(MatPocoDen<T>&);
 };
 
 /* Declaración del método constructor por omisión. */
@@ -187,6 +189,10 @@ T MatPocoDen<T>::SumaCol(int Colum)
     return Suma;
 }
 
+/*
+Método que imprime la matriz poco densa con 0 en los lugares
+vacíos
+*/
 template <class T>
 void MatPocoDen<T>::Escritura()
 {
@@ -208,6 +214,55 @@ void MatPocoDen<T>::Escritura()
         }
         cout << endl;
     }
+}
+
+/*
+Sobreescritura del operador + para sumar dos matrices
+poco densas con igual numero de renglones y columnas
+*/
+template <class T>
+MatPocoDen<T> MatPocoDen<T>::operator+(MatPocoDen<T>& otro)
+{   
+    MatPocoDen<T> nueva = MatPocoDen<T>();
+    nueva.TotCol = TotCol;
+    nueva.TotRen = TotRen;
+    nueva.TotVal = 0;
+    int i,j;
+    bool coincidencia = false;
+    for (i = 0; i < TotVal; i++) {
+        coincidencia = false;
+        for(j = 0; j < otro.TotVal && !coincidencia; j++) {
+            if(Valores[i].Ren == otro.Valores[j].Ren &&
+               Valores[i].Col == otro.Valores[j].Col) {
+                nueva.Valores[nueva.TotVal].Dato = Valores[i].Dato + otro.Valores[j].Dato;
+                nueva.Valores[nueva.TotVal].Ren = Valores[i].Ren;
+                nueva.Valores[nueva.TotVal].Col = Valores[i].Col;
+                nueva.TotVal++;
+                coincidencia = true;
+            }
+        }
+        if(!coincidencia) {
+            nueva.Valores[nueva.TotVal]= Valores[i];
+            nueva.TotVal++;
+        }
+    }
+
+    for (i = 0; i < otro.TotVal; i++) {
+        coincidencia = false;
+        for(j = 0; j < TotVal && !coincidencia; j++) {
+            if(Valores[j].Ren == otro.Valores[i].Ren &&
+               Valores[j].Col == otro.Valores[i].Col) {
+                coincidencia = true;
+            }
+        }
+        if(!coincidencia) {
+            nueva.Valores[nueva.TotVal].Dato = otro.Valores[i].Dato;
+            nueva.Valores[nueva.TotVal].Ren = otro.Valores[i].Ren;
+            nueva.Valores[nueva.TotVal].Col = otro.Valores[i].Col;
+            nueva.TotVal++;
+        }
+    }
+    return nueva;
 }
 
 class Arbol {
