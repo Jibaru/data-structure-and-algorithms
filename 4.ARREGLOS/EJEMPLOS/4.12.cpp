@@ -43,7 +43,7 @@ istream &operator>>(istream &Lee, Componente<T> &Com)
 {
     cout << "\n\nIngrese el valor: ";
     Lee >> Com.Dato;
-    cout << "\n\nIngrese el número del renglón que le corresponde: ";
+    cout << "\n\nIngrese el numero del renglon que le corresponde: ";
     Lee >> Com.Ren;
     cout << "\n\nIngrese el número de la columna que le corresponde: ";
     Lee >> Com.Col;
@@ -75,6 +75,7 @@ public:
     T SumaRen(int Renglon);
     T MaxCol(int Colum);
     void Imprime();
+    T SumaCol(int Colum);
 };
 
 /* Declaración del método constructor por omisión. */
@@ -106,7 +107,7 @@ void MatPocoDen<T>::Lectura()
         cout<<"\n\nIngrese los datos diferentes de 0 (o vacio).\n";
         cin>>Dato;
         do {
-            cout << "\nQué renglon le corresponde - de 0 a " << TotRen << ": ";
+            cout << "\nQue renglon le corresponde - de 0 a " << TotRen << ": ";
             cin >> IndRen;
         } while (IndRen < 0 || IndRen >= TotRen);
         
@@ -118,7 +119,7 @@ void MatPocoDen<T>::Lectura()
         Componente<T> Elemento(Dato, IndRen, IndCol);
         Valores[TotVal]= Elemento;
         TotVal++;
-        cout << "\n\nIngrese 1 si desea capturar más datos, 0 para terminar. \n";
+        cout << "\n\nIngrese 1 si desea capturar mas datos, 0 para terminar. \n";
         cin >> Resp;
     }
 }
@@ -131,7 +132,7 @@ T MatPocoDen<T>::SumaRen(int Renglon)
 {
     T Suma= 0; int Indice;
     for (Indice= 0; Indice < TotVal; Indice++)
-        if (Valores[Indice].Ren — Renglon)
+        if (Valores[Indice].Ren == Renglon)
             Suma= Suma + Valores[Indice].Dato;
             
     return Suma;
@@ -168,6 +169,21 @@ void MatPocoDen<T>::Imprime()
     for (Indice= 0; Indice < TotVal; Indice++)
         cout << Valores[Indice] << " ";
     cout << "\n\n\n";
+}
+
+/*
+Método que suma los valores de una una columna
+en una matriz poco densa
+*/
+template <class T>
+T MatPocoDen<T>::SumaCol(int Colum)
+{
+    T Suma= 0; int Indice;
+    for (Indice= 0; Indice < TotVal; Indice++)
+        if (Valores[Indice].Col == Colum)
+            Suma= Suma + Valores[Indice].Dato;
+            
+    return Suma;
 }
 
 class Arbol {
@@ -226,7 +242,7 @@ ostream &operator<<(ostream &Escribe, Arbol &ObjArbol)
 
 /* Función principal en la que se hace uso de las clases definidas para 
 la representación de la matriz poco densa. */
-int main()
+void usaMatPocoDensa()
 {
     MatPocoDen<int> Matriz1;
     Matriz1.Lectura();
@@ -235,5 +251,4 @@ int main()
     Matriz2.Lectura();
     Matriz2.Imprime();
 
-    return 0;
 }
