@@ -76,6 +76,7 @@ public:
     T MaxCol(int Colum);
     void Imprime();
     T SumaCol(int Colum);
+    void Escritura();
 };
 
 /* Declaración del método constructor por omisión. */
@@ -107,12 +108,12 @@ void MatPocoDen<T>::Lectura()
         cout<<"\n\nIngrese los datos diferentes de 0 (o vacio).\n";
         cin>>Dato;
         do {
-            cout << "\nQue renglon le corresponde - de 0 a " << TotRen << ": ";
+            cout << "\nQue renglon le corresponde - de 0 a " << TotRen - 1 << ": ";
             cin >> IndRen;
         } while (IndRen < 0 || IndRen >= TotRen);
         
         do {
-            cout << "\nQue columna le corresponde - de 0 a " << TotCol << ": ";
+            cout << "\nQue columna le corresponde - de 0 a " << TotCol - 1 << ": ";
             cin >> IndCol;
         } while (IndCol < 0 || IndCol >= TotCol);
 
@@ -184,6 +185,29 @@ T MatPocoDen<T>::SumaCol(int Colum)
             Suma= Suma + Valores[Indice].Dato;
             
     return Suma;
+}
+
+template <class T>
+void MatPocoDen<T>::Escritura()
+{
+    int i, j, k;
+    bool encontrado = false;
+    cout << "\n\n";
+    for(i = 0; i < TotRen; i++){
+        for(j = 0; j < TotCol; j++) {
+            encontrado = false;
+            for(k = 0; k < TotVal && !encontrado; k++) {
+                if(Valores[k].Ren == i && Valores[k].Col == j) {
+                    cout << Valores[k].Dato << "\t";
+                    encontrado = true;
+                }
+            }
+            if(!encontrado) {
+                cout << "0" << "\t";
+            }
+        }
+        cout << endl;
+    }
 }
 
 class Arbol {
