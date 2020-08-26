@@ -1,3 +1,5 @@
+#include <iostream>
+using namespace std;
 /* Constante que define el máximo número de elementos que se pueden 
 almacenar en el arreglo unidimensional. */
 #define MAX 50
@@ -17,6 +19,7 @@ public:
     void Lectura();
     void ImprimeMatriz();
     void ImprimeDatos();
+    MatrizTrianSup<T> operator+(MatrizTrianSup<T>&);
 };
 
 /* Método constructor por omisión. */
@@ -77,10 +80,10 @@ void MatrizTrianSup<T>::ImprimeMatriz()
             if (Ren <= Col)
             {
                 Indice= RegresaPosic(Ren, Col);
-                cout << Datos[Indice] << " - ";
+                cout << Datos[Indice] << "\t";
             }
             else
-                cout << "0 - ";
+                cout << "0\t";
         
         }
         cout << "\n";
@@ -98,4 +101,19 @@ void MatrizTrianSup<T>::ImprimeDatos()
     for (Indice= 0; Indice < TotElem; Indice++)
         cout << Datos[Indice] << " ";
     cout << "\n\n";
+}
+
+/* Sobreescritura del operador + que suma dos matrices
+triangulares superiores de la misma dimension*/
+template <class T>
+MatrizTrianSup<T> MatrizTrianSup<T>::operator+(MatrizTrianSup<T>& otro)
+{
+    int i;
+    MatrizTrianSup<T> nuevo = MatrizTrianSup<T>();
+    nuevo.Dim = Dim;
+    for (i = 0; i < TotalDatos(); i++)
+    {
+        nuevo.Datos[i] = Datos[i] + otro.Datos[i];
+    }
+    return nuevo;
 }
