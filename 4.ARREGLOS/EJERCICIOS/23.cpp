@@ -1,6 +1,9 @@
 /*
 23.	Defina la plantilla correspondiente a una matriz triangular inferior.
 */
+#include <iostream>
+
+using namespace std;
 #define MAX 50
 
 /* Definición de la clase MatrizTrianInf. Sus atributos son un arreglo 
@@ -18,6 +21,7 @@ public:
     void Lectura();
     void ImprimeMatriz();
     void ImprimeDatos();
+    T ValorMaximoRenglon(int);
 };
 
 /* Método constructor por omisión. */
@@ -30,7 +34,7 @@ matriz dentro del arreglo unidimensional en el cual fue guardado. */
 template <class T>
 int MatrizTrianInf<T>::RegresaPosic(int Ren, int Col)
 {
-    return (((Ren - 1) * Ren) / 2) + (Col - 1);
+    return ((Ren * (Ren + 1)) / 2) + Col;
 }
 
 /* Método que calcula el total de elementos guardados en el arreglo
@@ -75,7 +79,7 @@ void MatrizTrianInf<T>::ImprimeMatriz()
     {
         for (Col= 0; Col < Dim; Col++) 
         {
-            if (Ren <= Col)
+            if (Col <= Ren)
             {
                 Indice= RegresaPosic(Ren, Col);
                 cout << Datos[Indice] << "\t";
@@ -99,4 +103,22 @@ void MatrizTrianInf<T>::ImprimeDatos()
     for (Indice= 0; Indice < TotElem; Indice++)
         cout << Datos[Indice] << " ";
     cout << "\n\n";
+}
+
+template <class T>
+T MatrizTrianInf<T>::ValorMaximoRenglon(int Ren)
+{   
+    int Col, Indice, Maximo = Datos[0];
+    for (Col= 0; Col < Dim; Col++) 
+    {
+        if (Ren <= Col)
+        {
+            Indice= RegresaPosic(Ren, Col);
+            if(Maximo < Datos[Indice]) {
+                Maximo = Datos[Indice];
+            }
+        }
+    
+    }
+    return Maximo;
 }
