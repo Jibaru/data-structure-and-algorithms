@@ -22,6 +22,7 @@ public:
     void ImprimeMatriz();
     void ImprimeDatos();
     T ValorMaximoRenglon(int);
+    MatrizTrianInf<T> operator*(MatrizTrianInf<T>&);
 };
 
 /* Método constructor por omisión. */
@@ -121,4 +122,41 @@ T MatrizTrianInf<T>::ValorMaximoRenglon(int Ren)
     
     }
     return Maximo;
+}
+
+/*
+Método que suma dos matrices tiangulares inferiores de igual dimensión
+*/
+template <class T>
+MatrizTrianInf<T> MatrizTrianInf<T>::operator*(MatrizTrianInf<T>& otro)
+{
+    MatrizTrianInf<T> nuevo = MatrizTrianInf<T>();
+    nuevo.Dim = Dim;
+    int Ren, Col, Indice, r = 0;
+    T suma = 0;
+    for (Ren= 0; Ren < Dim; Ren++)
+    {
+        for (Col= 0; Col < Dim; Col++) 
+        {
+            
+            if (Col == Ren) {
+                Indice= RegresaPosic(Ren, Col);
+                nuevo.Datos[Indice] = Datos[Indice] * otro.Datos[Indice];
+            } else {
+                Indice = RegresaPosic(Ren, Col);
+                // Para sumar se tienen que omitir los lugares
+                // donde no existan valores para i,j
+                r = Col;
+                suma = 0;
+                while(r <= Ren && r >= Col) {
+                    suma += Datos[RegresaPosic(Ren, r)] * otro.Datos[RegresaPosic(r, Col)];
+                    r++;
+                }
+
+                nuevo.Datos[Indice] = suma;
+            } 
+        
+        }
+    }
+    return nuevo;
 }
