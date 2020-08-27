@@ -16,8 +16,8 @@ Editorial Pearson 2007 - Primera Edición
 - 1. Introducción a la POO
 - 2. Herencia y amistad
 - 3. Sobrecarga, plantillas y polimorfismo
-- 4. Arreglos (Pag. 149 PDF)
-- 5. Pilas y colas
+- 4. Arreglos
+- 5. Pilas y colas <-
 - 6. Listas
 - 7. Árboles
 - 8. Gráficas
