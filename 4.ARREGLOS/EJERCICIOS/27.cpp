@@ -8,6 +8,10 @@ unidimensional. Encuentre una fórmula que calcule la posición en la que fueron
 25	10	0	0
 18	41	25	0
 0	45	56	31
-		22	16
+0	0	22	16
 
+Dato[Ren][Col] =
+3(Ren); Ren == Col
+3(Ren) + 1; Ren == Col - 1
+3(Ren) - 1; Ren == Col + 1
 */
