@@ -21,17 +21,35 @@ private:
     T Datos[MAX]; int Dim;
 public:
     MatrizSimetrica();
+    MatrizSimetrica(T[], int, int);
     int RegresaPosic(int, int);
     int TotalDatos();
     void Lectura();
     void ImprimeMatriz();
     void ImprimeDatos();
+    T* regresaDato(int, int);
 };
 
 /* Método constructor por omisión. */
 template <class T>
 MatrizSimetrica<T>::MatrizSimetrica()
 {}
+
+/* Metodo constructor a partir de un arreglo de n posiciones*/
+template <class T>
+MatrizSimetrica<T>::MatrizSimetrica(T arr[], int n, int dim)
+{
+    Dim = dim;
+    int Ren, Col, Indice = 0;
+    for (Ren= 0; Ren < Dim; Ren++)
+    {
+        for (Col= Ren; Col < Dim; Col++) 
+        {
+            Datos[Indice] = arr[Indice];
+            Indice= Indice + 1;
+        }
+    }
+}
 
 /* Método que calcula la posición que le corresponde a un elemento de la 
 matriz dentro del arreglo unidimensional en el cual fue guardado. */
@@ -111,16 +129,17 @@ void MatrizSimetrica<T>::ImprimeDatos()
     cout << "\n\n";
 }
 
+template <class T>
+T* MatrizSimetrica<T>::regresaDato(int Ren, int Col)
+{
+    int Indice= RegresaPosic(Col, Ren);
+    return &Datos[Indice];
+}
+
 void usaMatrizSimetrica()
 {
     MatrizSimetrica<int> matriz = MatrizSimetrica<int>();
     matriz.Lectura();
     matriz.ImprimeDatos();
     matriz.ImprimeMatriz();
-}
-
-int main()
-{
-    usaMatrizSimetrica();
-    return 0;
 }

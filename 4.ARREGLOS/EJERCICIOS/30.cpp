@@ -22,3 +22,87 @@ ambas ciudades, y si es así, su costo.
 c)	Genere un reporte de todas las ciudades entre las que no existen vuelos directos. 
 
 */
+#include "29.cpp"
+#include <conio.h>
+
+int menuOpciones()
+{
+    int opc;
+    do {
+        cout << "1-Ver destinos por posicion ciudad" << endl;
+        cout << "2-Ver si existe vuelo entre dos ciudades, y su costo si existe" << endl;
+        cout << "3-Reporte de ciudades en las que no hay vuelos directos" << endl;
+        cout << "4-Salir" << endl;
+        cout << "Ingrese opcion: ";
+        cin >> opc;
+    } while(opc < 1 || opc > 4);
+
+    return opc;
+}
+
+int main()
+{
+    float arrCostos[10] = {0, 1000, 0, 890, 1250, 0, 720, 0, 2050, 0};
+    MatrizSimetrica<float> costos = MatrizSimetrica<float>(arrCostos, 10, 4);
+    int opc, pos, posDestino;
+    float dato;
+    costos.ImprimeMatriz();
+
+    do {
+        opc =menuOpciones();
+
+        switch(opc) {
+            case 1: {
+                cout << "Ingrese posicion: ";
+                cin >> pos;
+                for(int i = 0; i < 4; i++) {
+                    float dato = *costos.regresaDato(pos, i);
+                    if(dato != 0) {
+                        cout << "Destino ciudad " << pos 
+                             << " hacia ciudad " << i 
+                             << " con costo: " << dato << endl;
+                    }
+                }
+                break;
+            }
+        
+            case 2: {
+                cout << "Ingrese posicion ciudad origen: ";
+                cin >> pos;
+                cout << "Ingrese posicion ciudad destino: ";
+                cin >> posDestino;
+                float dato = *costos.regresaDato(pos, posDestino);
+                if(dato != 0) {
+                    cout << "Destino ciudad " << pos 
+                            << " hacia ciudad " << posDestino 
+                            << " con costo: " << dato << endl;
+                } else {
+                    cout << "No existe vuelo" << endl;
+                }
+                break;
+            }
+
+            case 3: {
+                cout << "Origen y destino donde no hay vuelos" << endl;
+                for(int i = 0; i < 4; i++) {
+                    for(int j = 0; j < 4; j++) {
+                        float dato = *costos.regresaDato(i, j);
+                        if(dato == 0) {
+                            cout << "Destino ciudad " << i 
+                                << " hacia ciudad " << j << endl;
+                        }
+                    }
+                }
+                break;
+            }
+
+            case 4: {
+                cout << "Fin del programa" << endl;
+                break;
+            }
+        }
+        getch();
+    } while(opc != 4);
+
+    return 0;
+}
