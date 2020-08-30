@@ -19,6 +19,7 @@ public:
     int operator-(T*);
     int ColaLlena();
     int ColaVacia();
+	void ImprimeDatos();
 };
 
 /* Declaración del método constructor. Inicializa los punteros en -1, 
@@ -97,3 +98,11 @@ int Cola<T>::ColaVacia()
     else
         return 0;
 } 
+
+template <class T>
+void Cola<T>::ImprimeDatos()
+{
+	for(int i = Frente; i <= Final; i++) {
+		cout << "<-" << EspacioCola[i];
+	}
+}
