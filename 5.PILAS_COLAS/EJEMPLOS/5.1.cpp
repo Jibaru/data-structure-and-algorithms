@@ -17,6 +17,7 @@ public:
     void Pop(T *Dato);
     int PilaLlena();
     int PilaVacia();
+	void ImprimeDatos();
 };
 
 /* Declaración del método constructor. Inicializa el Tope en -1, 
@@ -65,6 +66,14 @@ int Pila<T>::PilaVacia()
         return 1;
     else
         return 0;
+}
+
+template <class T>
+void Pila<T>::ImprimeDatos()
+{
+	for(int i = 0; i <= Tope; i++) {
+		cout << EspacioPila[i] << endl;
+	}
 }
 
 /* Función que usa la plantilla de la clase Pila. Se almacenan algunos 
