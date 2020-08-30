@@ -89,9 +89,3 @@ void FuncionUsaPila ()
         cout << Valor << "\n";
     }
 }
-
-int main()
-{
-    FuncionUsaPila();
-    return 0;
-}
