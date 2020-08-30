@@ -20,6 +20,8 @@ public:
     int ColaLlena();
     int ColaVacia();
 	void ImprimeDatos();
+	template <class M>
+	friend void InvierteColaRecursivo(Cola<M> &, int);
 };
 
 /* Declaración del método constructor. Inicializa los punteros en -1, 
@@ -105,4 +107,26 @@ void Cola<T>::ImprimeDatos()
 	for(int i = Frente; i <= Final; i++) {
 		cout << "<-" << EspacioCola[i];
 	}
+}
+
+template <class M>
+void InvierteColaRecursivo(Cola<M> &cola, int inicial = -1)
+{
+	int cant = (cola.Final - cola.Frente) + 1;
+	int mitad = cant / 2;
+	
+	if(inicial == -1) {
+		inicial = cola.Frente;
+	}
+	
+	if(inicial + cola.Frente == mitad + cola.Frente) {
+		return;
+	} else {
+		int indiceOp = (cant - 1) - (inicial - cola.Frente) + cola.Frente;
+		M aux = cola.EspacioCola[inicial];
+		cola.EspacioCola[inicial] = cola.EspacioCola[indiceOp];
+		cola.EspacioCola[indiceOp] = aux;
+		InvierteColaRecursivo(cola, inicial+1);
+	}
+	
 }
