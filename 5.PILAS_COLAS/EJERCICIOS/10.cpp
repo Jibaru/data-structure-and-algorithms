@@ -61,6 +61,7 @@ istream& operator>>(istream& entrada, Impresion& obj)
 	entrada >> obj.NombreArchivo;
 	cout << "Autor: ";
 	cin >> obj.Autor;
+	return entrada;
 }
 
 int menuOpciones()
