@@ -51,11 +51,11 @@ void Cliente::ImprimirDatos()
 istream& operator>>(istream& entrada, Cliente& obj)
 {
 	cout << "Nombre: ";
-	cin >> obj.nombre;
+	entrada >> obj.nombre;
 	cout << "DNI: ";
-	cin >> obj.dni;
+	entrada >> obj.dni;
 	cout << "Edad: ";
-	cin >> obj.edad;
+	entrada >> obj.edad;
 	return entrada;
 }
 

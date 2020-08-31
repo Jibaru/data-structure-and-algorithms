@@ -60,7 +60,7 @@ istream& operator>>(istream& entrada, Impresion& obj)
 	cout << "Nombre archivo: ";
 	entrada >> obj.NombreArchivo;
 	cout << "Autor: ";
-	cin >> obj.Autor;
+	entrada >> obj.Autor;
 	return entrada;
 }
 
