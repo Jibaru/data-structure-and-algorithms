@@ -1,4 +1,4 @@
-# Algoritmos y estructura de datos
+﻿# Algoritmos y estructura de datos
 Algoritmos y estructura de datos en C++
 
 ## ¿Qué encontrarás aquí?
@@ -17,8 +17,8 @@ Editorial Pearson 2007 - Primera Edición
 - 2. Herencia y amistad
 - 3. Sobrecarga, plantillas y polimorfismo
 - 4. Arreglos
-- 5. Pilas y colas <-
-- 6. Listas
+- 5. Pilas y colas
+- 6. Listas <-
 - 7. Árboles
 - 8. Gráficas
 - 9. Ordenación
