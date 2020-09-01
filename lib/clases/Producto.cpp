@@ -1,33 +1,15 @@
-/* Definición de la clase Producto. Se sobrecargan algunos operadores 
-para que objetos de esta clase puedan ser usados de manera directa. 
-Esta clase se guarda en la biblioteca "Productos.h" */
 #include <iostream>
 #include <string.h>
-using namespace std;
+#include "Producto.h"
 
-class Producto {
-private:
-    int Clave;
-    char NomProd[64];
-    double Precio;
-public:
-    Producto();
-    Producto(int, char[], double);
-    double RegresaPrecio();
-    int operator == (Producto);
-    int operator != (Producto);
-    int operator > (Producto);
-    int operator < (Producto);
-    friend istream &operator>> (istream &, Producto &);
-    friend ostream &operator<< (ostream &, Producto &);
-};
+using namespace std;
 
 /* Declaración del método constructor por omisión. */
 Producto::Producto()
 {}
 
 /* Declaración del método constructor con parámetros. */
-Producto::Producto(int Cla, char NomP[], double Pre)
+Producto::Producto(int Cla, const char NomP[], double Pre)
 {
     Clave= Cla;
     strcpy(NomProd, NomP);

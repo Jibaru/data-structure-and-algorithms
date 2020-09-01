@@ -1,8 +1,11 @@
+#ifndef _LISTAS_SIM_LIG_H_
+#define _LISTAS_SIM_LIG_H_
+
+#include <iostream>
+
 /* Definición de la plantilla de la clase NodoLista y de la clase Lista. 
 Se incluyeron los métodos más usados. Sin embargo, dependiendo de la 
 aplicación se podrían definir otros. */
-#include <iostream>
-using namespace std;
 
 /* Prototipo de la plantilla de la clase Lista. Asi, en la clase NodoLista 
 se podrá hacer referencia a ella. */
@@ -20,22 +23,6 @@ public:
     T RegresaInfo();
     friend class Lista<T>;
 };
-
-/* Declaración del método constructor por omisión. Inicializa con el 
-valor NULL al puntero al siguiente nodo. */
-template <class T>
-NodoLista<T>::NodoLista()
-{
-    Liga= NULL;
-}
-
-/* Método que permite, a usuarios ajenos a la clase, conocer el valor 
-del atributo Info. */
-template <class T>
-T NodoLista<T>::RegresaInfo()
-{
-    return Info;
-}
 
 /* Definición de la clase Lista. */
 template <class T>
@@ -65,6 +52,22 @@ public:
     NodoLista<T> * BuscaRecursivo(T, NodoLista<T> *);
 };
 
+/* Declaración del método constructor por omisión. Inicializa con el 
+valor NULL al puntero al siguiente nodo. */
+template <class T>
+NodoLista<T>::NodoLista()
+{
+    Liga= NULL;
+}
+
+/* Método que permite, a usuarios ajenos a la clase, conocer el valor 
+del atributo Info. */
+template <class T>
+T NodoLista<T>::RegresaInfo()
+{
+    return Info;
+}
+
 /* Declaración del método constructor. Inicializa el puntero al primer 
 nodo de la lista con el valor NULL: indica lista vacia. */
 template <class T>
@@ -90,23 +93,23 @@ void Lista<T>::CreaInicio()
 
     Primero= new NodoLista<T>();
 
-    cout << "Ingrese la informacion a almacenar: \n";
-    cin >> Dato;
+    std::cout << "Ingrese la informacion a almacenar: \n";
+    std::cin >> Dato;
 
     Primero->Info= Dato;
     
-    cout << "\nDesea ingresar otro elemento (S/N)? ";
-    cin >> Resp;
+    std::cout << "\nDesea ingresar otro elemento (S/N)? ";
+    std::cin >> Resp;
     while (Resp = 'S' || Resp = 's')
     {
-        cout << "Ingrese la informacion: \n";
-        cin >> Dato;
+        std::cout << "Ingrese la informacion: \n";
+        std::cin >> Dato;
         P = new NodoLista<T>();
         P->Info= Dato;
         P->Liga= Primero;
         Primero= P;
-        cout<< "\nDesea ingresar otro elemento (S/N)? ";
-        cin >> Resp;
+        std::cout<< "\nDesea ingresar otro elemento (S/N)? ";
+        std::cin >> Resp;
     }
 }
 
@@ -118,25 +121,25 @@ void Lista<T>::CreaFinal()
     NodoLista<T> * P, *Ultimo;
     T Dato; char Resp;
     Primero= new NodoLista<T>();
-    cout << "Ingrese la informacion a almacenar: \n";
-    cin >> Dato;
+    std::cout << "Ingrese la informacion a almacenar: \n";
+    std::cin >> Dato;
     Primero->Info= Dato;
     
     /* Se mantiene un puntero al último nodo agregado a la lista para 
     evitar tener que recorrerla con cada nuevo nodo. */
     Ultimo= Primero;
-    cout << "\nDesea ingresar otro elemento (S/N)? ";
-    cin >> Resp;
+    std::cout << "\nDesea ingresar otro elemento (S/N)? ";
+    std::cin >> Resp;
     while (Resp = 'S' || Resp = 's')
     {
-        cout << "\nIngrese la informacion \n";
-        cin >> Dato;
+        std::cout << "\nIngrese la informacion \n";
+        std::cin >> Dato;
         P= new NodoLista<T>();
         P->Info= Dato;
         Ultimo->Liga= P;
         Ultimo= P;
-        cout << "\nDesea ingresar otro elemento (S/N)? ";
-        cin >> Resp;
+        std::cout << "\nDesea ingresar otro elemento (S/N)? ";
+        std::cin >> Resp;
     }
 }
 
@@ -148,10 +151,10 @@ void Lista<T>::ImprimeIterativo()
     P= Primero;
     while (P)
     {
-        cout<< "\nInformacion: "<< P->Info;
+        std::cout<< "\nInformacion: "<< P->Info;
         P= P->Liga;
     }
-    cout<< "\n";
+    std::cout<< "\n";
 }
 
 /* Metodo que despliega el contenido de la lista recursivamente. 
@@ -161,10 +164,10 @@ void Lista<T>::ImprimeRecursivo(NodoLista<T> * P)
 {
     if (P)
     {
-        cout << "\nInformacion: " << P->Info;
+        std::cout << "\nInformacion: " << P->Info;
         ImprimeRecursivo(P->Liga);
     }
-    cout << "\n";
+    std::cout << "\n";
 }
 
 /* Método que imprime la información de un nodo dado como dato. */
@@ -172,7 +175,7 @@ template <class T>
 void Lista<T>::ImprimeUnNodo(NodoLista<T> * P)
 {
     if (P)
-        cout<< P->Info;
+        std::cout<< P->Info;
 }
 
 /* Método que inserta un nodo al inicio de la lista. El método es válido
@@ -535,3 +538,5 @@ NodoLista<T> * Lista<T>::BuscaRecursivo(T Dato, NodoLista<T> * Q)
     else
         return NULL;
 }
+
+#endif
