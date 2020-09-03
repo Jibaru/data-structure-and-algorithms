@@ -1,6 +1,8 @@
-// Me quede en 306 :V
+#ifndef _LISTAS_DOB_LIG_
+#define _LISTAS_DOB_LIG_
+
 #include <iostream>
-using namespace std;
+
 /* Prototipo de la plantilla de la clase ListaDobLiga. Asi, en la clase 
 NodoDobleLiga se podrá hacer referencia a ella. */
 template <class T>
@@ -83,7 +85,7 @@ void ListaDobLiga<T>::ImprimeIzq_Der(NodoDobleLiga<T>* Apunt)
 {
     if (Apunt)
     {
-        cout <<Apunt->Info << "\n";
+        std::cout <<Apunt->Info << "\n";
         ImprimeIzq_Der(Apunt->LigaDer);
     }
 }
@@ -96,7 +98,7 @@ void ListaDobLiga<T>::ImprimeDer_Izq(NodoDobleLiga<T>* Apunt)
 {
     if (Apunt)
     {
-        cout << Apunt->Info << "\n";
+        std::cout << Apunt->Info << "\n";
         ImprimeDer_Izq(Apunt->LigaIzq);
     }
 }
@@ -106,7 +108,7 @@ la lista, cuya dirección se recibe como parámetro. */
 template <class T>
 void ListaDobLiga<T>::ImprimeNodo(NodoDobleLiga<T>* Apunt)
 {
-    cout << Apunt->Info << "\n";
+    std::cout << Apunt->Info << "\n";
 }
 
 /* Método que inserta un nuevo nodo con la información de Dato al inicio 
@@ -438,3 +440,5 @@ NodoDobleLiga<T> * ListaDobLiga<T>::RegresaVecinoIzq(NodoDobleLiga<T> *Apunt)
 {
     return Apunt->LigaIzq;
 }
+
+#endif
