@@ -100,7 +100,7 @@ void Lista<T>::CreaInicio()
     
     std::cout << "\nDesea ingresar otro elemento (S/N)? ";
     std::cin >> Resp;
-    while (Resp = 'S' || Resp = 's')
+    while (Resp == 'S' || Resp == 's')
     {
         std::cout << "Ingrese la informacion: \n";
         std::cin >> Dato;

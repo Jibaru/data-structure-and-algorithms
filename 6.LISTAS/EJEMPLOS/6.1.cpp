@@ -127,7 +127,7 @@ void Lista<T>::CreaFinal()
     Ultimo= Primero;
     cout << "\nDesea ingresar otro elemento (S/N)? ";
     cin >> Resp;
-    while (Resp = 'S' || Resp = 's')
+    while (Resp == 'S' || Resp == 's')
     {
         cout << "\nIngrese la informacion \n";
         cin >> Dato;
