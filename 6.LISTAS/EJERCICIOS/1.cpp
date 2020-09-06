@@ -42,6 +42,8 @@ public:
 	int elimina(T);
 	NodoLista<T>* busca(T);
 	int tamanio();
+	NodoLista<T>* mayor();
+	int vacia();
 };
 
 template <class T>
@@ -270,17 +272,30 @@ int ListaSimLigada<T>::elimina(T dato)
 	int resp = 1;
 	if(primero) {
 		aux = primero;
-		while(aux != NULL && aux->info != dato) {
-			antes = aux;
-			aux = aux->siguiente;
-		}
 		
-		if(aux != NULL) {
-			antes->siguiente = aux->siguiente;
+		if(primero->info == dato) {
+			if(primero == ultimo) {
+				ultimo = NULL;
+			}
+			primero = primero->siguiente;
 			delete aux;
 		} else {
-			resp = 0;
+			while(aux != NULL && aux->info != dato) {
+				antes = aux;
+				aux = aux->siguiente;
+			}
+			
+			if(aux != NULL) {
+				if(ultimo->info == dato) {
+					ultimo = antes;
+				}
+				antes->siguiente = aux->siguiente;
+				delete aux;
+			} else {
+				resp = 0;
+			}
 		}
+		
 	} else {
 		resp = -1;
 	}
@@ -305,6 +320,27 @@ NodoLista<T>* ListaSimLigada<T>::busca(T dato)
 }
 
 template <class T>
+NodoLista<T>* ListaSimLigada<T>::mayor()
+{
+	NodoLista<T>* elemento, *aux;
+	T dato = 0;
+	if(primero) {
+		aux = primero;
+		while(aux != NULL) {
+			if(aux->info > dato) {
+				elemento = aux;
+				dato = aux->info;
+			}
+			aux = aux->siguiente;
+		}
+	} else {
+		elemento = NULL;
+	}
+	
+	return elemento;
+}
+
+template <class T>
 int ListaSimLigada<T>::tamanio()
 {
 	int cont = 0;
@@ -317,6 +353,15 @@ int ListaSimLigada<T>::tamanio()
 	}
 
 	return cont;
+}
+
+template <class T>
+int ListaSimLigada<T>::vacia()
+{
+	if(primero == NULL && ultimo == NULL) {
+		return 1;
+	}
+	return 0;
 }
 
 void testEjercicio1()
