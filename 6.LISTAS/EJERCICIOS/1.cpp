@@ -44,6 +44,7 @@ public:
 	int tamanio();
 	NodoLista<T>* mayor();
 	int vacia();
+	ListaSimLigada<T>* combina(ListaSimLigada<T>&);
 };
 
 template <class T>
@@ -123,6 +124,9 @@ template <class T>
 void ListaSimLigada<T>::insertaFinal(T dato)
 {
 	NodoLista<T>* nuevoNodo = new NodoLista<T>();
+	if(nuevoNodo == NULL) {
+		std::cout << "SIN MEM" << std::endl;
+	}
 	nuevoNodo->info = dato;
 	if(primero == NULL && ultimo == NULL){
 		primero = nuevoNodo;
@@ -362,6 +366,52 @@ int ListaSimLigada<T>::vacia()
 		return 1;
 	}
 	return 0;
+}
+
+template <class T>
+ListaSimLigada<T>* ListaSimLigada<T>::combina(ListaSimLigada<T>& l2)
+{
+	ListaSimLigada<T> *nueva = new ListaSimLigada<T>();
+	NodoLista<T> *ap1, *ap2;
+	ap1 = primero;
+	ap2 = l2.primero;
+
+	while(ap1 != NULL || ap2 != NULL) {
+		
+		if(ap1 != NULL && ap2 != NULL) {			
+			if(ap1->info > ap2->info) {
+				if(nueva->ultimo && nueva->ultimo->info != ap2->info) {
+					nueva->insertaFinal(ap2->info);
+				} else if(nueva->vacia()) {
+					nueva->insertaFinal(ap2->info);
+				}
+				ap2 = ap2->siguiente;
+			} else {
+				if(nueva->ultimo && nueva->ultimo->info != ap1->info) {
+					nueva->insertaFinal(ap1->info);
+				}else if(nueva->vacia()) {
+					nueva->insertaFinal(ap2->info);
+				}
+				ap1 = ap1->siguiente;
+			}
+		} else if(ap1 != NULL && ap2 == NULL) {
+			if(nueva->ultimo && nueva->ultimo->info != ap1->info) {
+				nueva->insertaFinal(ap1->info);
+			}else if(nueva->vacia()) {
+				nueva->insertaFinal(ap1->info);
+			}
+			ap1 = ap1->siguiente;
+		} else if(ap1 == NULL && ap2 != NULL){
+			if(nueva->ultimo && nueva->ultimo->info != ap2->info) {
+				nueva->insertaFinal(ap2->info);
+			}else if(nueva->vacia()) {
+				nueva->insertaFinal(ap2->info);
+			}
+			ap2 = ap2->siguiente;
+		}
+	}
+
+	return nueva;
 }
 
 void testEjercicio1()
