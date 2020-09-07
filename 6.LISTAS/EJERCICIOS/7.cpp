@@ -195,7 +195,7 @@ NodoLista<T>* ListaCircularSimple<T>::buscaNodo(T dato)
 	return aux;
 }
 
-int main()
+void testEjercicio7()
 {
 	ListaCircularSimple<int> l = ListaCircularSimple<int>();
 	l.imprimeLista();
@@ -216,5 +216,4 @@ int main()
 	std::cout << "Busca 9: " << ((l.buscaNodo(9)) ? "Encontrado": "No encontrado") << std::endl;
 	std::cout << "Busca 2: " << ((l.buscaNodo(2)) ? "Encontrado": "No encontrado") << std::endl;
 	
-	return 0;
 }
