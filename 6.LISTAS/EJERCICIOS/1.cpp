@@ -45,6 +45,8 @@ public:
 	NodoLista<T>* mayor();
 	int vacia();
 	ListaSimLigada<T>* combina(ListaSimLigada<T>&);
+	void eliminaRepetidosOrdenada();
+	void eliminaRepetidosDesordenada();
 };
 
 template <class T>
@@ -412,6 +414,53 @@ ListaSimLigada<T>* ListaSimLigada<T>::combina(ListaSimLigada<T>& l2)
 	}
 
 	return nueva;
+}
+
+template <class T>
+void ListaSimLigada<T>::eliminaRepetidosOrdenada()
+{
+	NodoLista<T>* aux, *antes;
+	aux = primero;
+	antes = primero;
+	while(aux){
+		if(aux != primero && antes->info == aux->info) {
+			if(ultimo == aux){
+				ultimo = antes;
+			}
+			antes->siguiente = aux->siguiente;
+			delete aux;
+			aux = antes->siguiente;
+		} else {
+			antes = aux;
+			aux = aux->siguiente;
+		}
+	}
+}
+
+template <class T>
+void ListaSimLigada<T>::eliminaRepetidosDesordenada()
+{
+	NodoLista<T>* actual, *aux, *antes;
+	actual = primero;
+
+	while(actual) {
+		aux = actual->siguiente;
+		antes = actual;
+		while(aux) {
+			if(actual->info == aux->info) {
+				if(ultimo == aux){
+					ultimo = antes;
+				}
+				antes->siguiente = aux->siguiente;
+				delete aux;
+				aux = antes->siguiente;
+			} else {
+				antes = aux;
+				aux = aux->siguiente;
+			}
+		}
+		actual = actual->siguiente;
+	}
 }
 
 void testEjercicio1()
