@@ -37,6 +37,7 @@ public:
 	int pop();
 	int tamanio();
 	int vacia();
+	void invertir();
 };
 
 /* 
@@ -207,6 +208,38 @@ NodoCola<T>* ColaLigada<T>::busca(T dato)
 	}
 	
 	return elemento;
+}
+
+/*
+Invierte los elementos de la cola
+*/
+template <class T>
+void ColaLigada<T>::invertir()
+{
+	if(primero != ultimo) {
+		NodoCola<T>* actual, *anterior, *despues;
+		if(primero->siguiente == ultimo) {
+			// solo dos elementos
+			ultimo->siguiente = primero;
+			primero->siguiente = NULL;
+		} else {
+			anterior = NULL;
+			actual = primero;
+			despues = primero->siguiente;
+
+			while(actual) {
+				actual->siguiente = anterior;
+				anterior = actual;
+				actual = despues;
+				if(actual){
+					despues = actual->siguiente;
+				}
+			}
+		}
+		actual = primero;
+		primero = ultimo;
+		ultimo = actual;
+	}
 }
 
 void testEjercicio9()
