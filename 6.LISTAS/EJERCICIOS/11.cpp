@@ -4,6 +4,7 @@ par (X, Y) de números reales. Haga los cambios en las clases
 que crea conveniente.
 */
 #include <iostream>
+#include <math.h>
 
 class ListaSimLigadaPares;
 
@@ -36,6 +37,11 @@ public:
 	void insertaFinal(float, float);
 	int elimina(float, float);
 	NodoListaPares* busca(float, float);
+	float promedioX();
+	float promedioY();
+	float calculaB1();
+	float calculaB0();
+	int tamanio();
 };
 
 NodoListaPares::NodoListaPares()
@@ -183,6 +189,94 @@ NodoListaPares* ListaSimLigadaPares::busca(float x, float y)
 	}
 	
 	return elemento;
+}
+
+/*
+Devuelve la cantidad de elementos de la lista
+*/
+int ListaSimLigadaPares::tamanio()
+{
+	int n = 0;
+	if(primero) {
+		NodoListaPares* aux = primero;
+		while (aux) {
+			aux = aux->siguiente;
+			n++;
+		}
+	}
+	return n;
+}
+
+/*
+Devuelve el promedio de las x almacenadas
+*/
+float ListaSimLigadaPares::promedioX()
+{
+	float suma = 0, prom = 0;
+	int n = 0;
+	if(primero) {
+		NodoListaPares* aux = primero;
+		while(aux) {
+			suma += aux->x;
+			aux = aux->siguiente;
+			n++;
+		}
+		prom = 	suma / n;		
+	}
+	return prom;
+}
+
+/*
+Devuelve el promedio de las y almacenadas
+*/
+float ListaSimLigadaPares::promedioY()
+{
+	float suma = 0, prom = 0;
+	int n = 0;
+	if(primero) {
+		NodoListaPares* aux = primero;
+		while(aux) {
+			suma += aux->y;
+			aux = aux->siguiente;
+			n++;
+		}
+		prom = 	suma / n;		
+	}
+	return prom;
+}
+
+float ListaSimLigadaPares::calculaB1()
+{
+	float suma1 = 0, suma2 = 0, solucion = 0, promX, promY;
+	int n;
+	if(primero) {
+		NodoListaPares* aux = primero;
+		n = tamanio();
+		promX = promedioX();
+		promY = promedioY();
+		
+		while(aux) {
+			suma1 += ((aux->x * aux->y) - (n * promX * promY));
+			suma2 += (pow(aux->x, 2) - (n * pow(promX, 2)));
+			aux = aux->siguiente;
+		}
+		if(suma2 != 0) {
+			solucion = suma1 / suma2;
+		}
+	}
+	return solucion;
+}
+
+float ListaSimLigadaPares::calculaB0()
+{
+	float promX, promY, solucion = 0;
+	if(primero) {
+		promX = promedioX();
+		promY = promedioY();
+		
+		solucion = promY - (calculaB1() * promX);
+	}
+	return solucion;
 }
 
 void testEjercicio11()
