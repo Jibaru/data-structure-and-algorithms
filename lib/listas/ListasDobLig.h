@@ -398,7 +398,7 @@ template <class T>
 NodoDobleLiga<T> * ListaDobLiga<T>::Busca(T Dato, NodoDobleLiga<T> *Apunt)
 {
     if (Apunt)
-        if (Apunt->Info = Dato)
+        if (Apunt->Info == Dato)
             return Apunt;
         else
             return Busca (Dato, Apunt->LigaDer);
