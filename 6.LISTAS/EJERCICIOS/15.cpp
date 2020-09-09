@@ -28,6 +28,8 @@ private:
 public:
     NodoListaCirDob();
     T* regresaInfo();
+	NodoListaCirDob<T>* regresaSiguiente();
+	NodoListaCirDob<T>* regresaAnterior();
     friend class ListaCircularDoble<T>;
 };
 /*
@@ -65,6 +67,26 @@ template <class T>
 T* NodoListaCirDob<T>::regresaInfo()
 {
     return &info;
+}
+
+/*
+Metodo que regresa un puntero al nodo anterior 
+al actual
+*/
+template <class T>
+NodoListaCirDob<T>* NodoListaCirDob<T>::regresaAnterior()
+{
+	return anterior;
+}
+
+/*
+Metodo que regresa un puntero al nodo siguiente 
+al actual
+*/
+template <class T>
+NodoListaCirDob<T>* NodoListaCirDob<T>::regresaSiguiente()
+{
+	return siguiente;
 }
 
 /*
