@@ -165,8 +165,11 @@ int main()
 {
 	ListaCircularDoble<Automovil> lista = ListaCircularDoble<Automovil>();
 	
-	int opc, clave, resp;
+	int opc, clave, resp, anio;
+	float precio;
+	char empleado[60];
 	Automovil automovil, aux;
+	NodoListaCirDob<Automovil>* it, *menor;
 	
 	do {
 		opc = menuOpciones();
@@ -196,7 +199,7 @@ int main()
 						break;
 					}
 					case 0: {
-						cout << "No se encontro automovil" << endl;
+						cout << "No se encontro el automovil" << endl;
 						break;
 					}
 					case 1: {
@@ -208,19 +211,79 @@ int main()
 			}
 			
 			case 3: {
-				
+				cout << "Ingrese anio de fabricacion: ";
+				cin >> anio;
+				it = lista.regresaMenor();
+				menor = it;
+				while(it != menor->regresaAnterior()) {
+					automovil = *(it->regresaInfo());
+					if(anio == automovil.regresaAnioFabricacion()) {
+						cout << automovil;
+					}
+					it = it->regresaSiguiente();
+				}
+				if(it == menor->regresaAnterior()) {
+					automovil = *(it->regresaInfo());
+					if(anio == automovil.regresaAnioFabricacion()) {
+						cout << automovil;
+					}
+				}
 				break;
 			}
 			case 4: {
-				
+				cout << "Ingrese precio compra: ";
+				cin >> precio;
+				it = lista.regresaMenor();
+				menor = it;
+				while(it != menor->regresaAnterior()) {
+					automovil = *(it->regresaInfo());
+					if(precio < automovil.regresaPrecioCompra()) {
+						cout << automovil;
+					}
+					it = it->regresaSiguiente();
+				}
+				if(it == menor->regresaAnterior()) {
+					automovil = *(it->regresaInfo());
+					if(precio < automovil.regresaPrecioCompra()) {
+						cout << automovil;
+					}
+				}
 				break;
 			}
 			case 5: {
-				
+				cout << "Ingrese empleado asignado: ";
+				cin.ignore();
+				cin.getline(empleado, 60);
+				it = lista.regresaMenor();
+				menor = it;
+				while(it != menor->regresaAnterior()) {
+					automovil = *(it->regresaInfo());
+					if(strcmp(empleado, automovil.regresaAsignadoA()) == 0) {
+						cout << automovil;
+					}
+					it = it->regresaSiguiente();
+				}
+				if(it == menor->regresaAnterior()) {
+					automovil = *(it->regresaInfo());
+					if(strcmp(empleado, automovil.regresaAsignadoA()) == 0) {
+						cout << automovil;
+					}
+				}
 				break;
 			}
 			case 6: {
-				
+				cout << "Ingrese clave de auto: ";
+				cin >> clave;
+				automovil = Automovil(clave);
+				it = lista.buscaNodo(automovil);
+				if(it) {
+					cout << "Ingrese nuevo empleado asignado: ";
+					cin.ignore();
+					cin.getline(empleado, 60);
+					it->regresaInfo()->cambiaAsignadoA(empleado);
+				} else {
+					cout << "No se encontro el automovil" << endl;
+				}
 				break;
 			}
 			case 7: {
