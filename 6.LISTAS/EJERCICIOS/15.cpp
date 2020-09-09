@@ -30,7 +30,10 @@ public:
     T* regresaInfo();
     friend class ListaCircularDoble<T>;
 };
-
+/*
+Clase ListaCircularDoble. Requiere que se sobreescriban
+los operadores ==, < y != del tipo de dato T
+*/
 template <class T>
 class ListaCircularDoble
 {
@@ -79,18 +82,56 @@ Metodo que inserta de manera ordenada un elemento
 template <class T>
 void ListaCircularDoble<T>::insertaOrdenada(T dato)
 {
-    NodoListaCirDob<T>* aux;
+    NodoListaCirDob<T>* actual, *nuevo;
+	nuevo = new NodoListaCirDob<T>();
+	nuevo->info = dato;
     if(menor) {
 
         if(menor == menor->siguiente) {
             // Solo existe un elemento
+			nuevo->siguiente = menor;
+			nuevo->anterior = menor;
+			menor->siguiente = nuevo;
+			menor->anterior = nuevo;
+			if(dato < menor->info) {
+				menor = nuevo;
+			}
         } else {
             // Hay mas de un elemento
-
+			
+			if(menor->anterior->info < dato || 
+			   menor->anterior->info == dato) {
+				// Si el dato es mayor o igual al ultimo
+				nuevo->siguiente = menor;
+				nuevo->anterior = menor->anterior;
+				menor->anterior->siguiente = nuevo;
+				menor->anterior = nuevo;
+			} else {
+				actual = menor;
+				// Dato se agregara antes de actual
+				while(actual != menor->anterior && actual->info < dato) {
+					actual = actual->siguiente;
+				}
+				
+				nuevo->siguiente = actual;
+				nuevo->anterior = actual->anterior;
+				actual->anterior->siguiente = nuevo;
+				actual->anterior = nuevo;
+				if(actual == menor) {
+					// en caso el dato nuevo sea menor ahora 
+					menor = nuevo;
+				}
+				
+			}
+			
         }
 
-
-    }
+    } else {
+		// No hay ningun elemento
+		nuevo->siguiente = nuevo;
+		nuevo->anterior = nuevo;
+		menor = nuevo;
+	}
 }
 
 /*
@@ -103,8 +144,35 @@ template <class T>
 int ListaCircularDoble<T>::eliminaNodo(T dato)
 {
     int resp = 1;
+	NodoListaCirDob<T>* aux;
     if(menor) {
-
+		if(dato < menor->info || menor->anterior->info < dato) {
+			resp = 0;
+		} else {
+			if(menor->anterior->info == dato) {
+				aux = menor->anterior;
+				aux->anterior->siguiente = menor;
+				menor->anterior = aux->anterior;
+				delete aux;
+			} else {
+				aux = menor;
+				
+				while(aux != menor->anterior && aux->info != dato) {
+					aux = aux->siguiente;
+				}
+				
+				if(aux != menor->anterior) {
+					aux->anterior->siguiente = aux->siguiente;
+					aux->siguiente->anterior = aux->anterior;
+					
+					if(aux == menor) {
+						menor = aux->siguiente;
+					}
+					delete aux;
+				}
+				
+			}
+		}
     } else {
         // Lista vacia
         resp = -1;
@@ -123,6 +191,7 @@ void ListaCircularDoble<T>::imprimeLista()
 
         while(aux != menor->anterior) {
             std::cout << aux->info << " <-> ";
+			aux = aux->siguiente;
         }
 
         if(aux == menor->anterior) {
@@ -171,4 +240,28 @@ NodoListaCirDob<T>* ListaCircularDoble<T>::buscaNodo(T dato)
     }
 
     return buscado;
+}
+
+void testEjercicio15()
+{
+	ListaCircularDoble<int> l = ListaCircularDoble<int>();
+	
+	l.insertaOrdenada(9);
+	l.insertaOrdenada(2);
+	l.insertaOrdenada(0);
+	l.insertaOrdenada(5);
+	l.insertaOrdenada(6);
+	l.insertaOrdenada(11);
+	l.insertaOrdenada(-3);
+	l.insertaOrdenada(-2);
+	l.imprimeLista();
+	
+	l.eliminaNodo(1);
+	l.eliminaNodo(-3);
+	l.eliminaNodo(0);
+	l.eliminaNodo(11);
+	l.imprimeLista();
+	
+	std::cout << "Busca 5: " << ((l.buscaNodo(5)) ? "Encontrado" : "No encontrado") << std::endl;
+	std::cout << "Busca 0: " << ((l.buscaNodo(0)) ? "Encontrado" : "No encontrado") << std::endl;
 }
