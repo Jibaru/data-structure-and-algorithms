@@ -48,6 +48,7 @@ public:
     void imprimeLista();
     void imprimeNodo(NodoListaCirDob<T>*);
     NodoListaCirDob<T>* buscaNodo(T);
+	NodoListaCirDob<T>* regresaMenor();
 };
 
 /*
@@ -262,6 +263,15 @@ NodoListaCirDob<T>* ListaCircularDoble<T>::buscaNodo(T dato)
     }
 
     return buscado;
+}
+
+/*
+Metodo que regresa el menor de los nodos
+*/
+template <class T>
+NodoListaCirDob<T>* ListaCircularDoble<T>::regresaMenor()
+{
+	return menor;
 }
 
 void testEjercicio15()
