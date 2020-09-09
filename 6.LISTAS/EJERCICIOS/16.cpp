@@ -23,3 +23,220 @@ PrecioCompra: float
 AsignadoA: char[]
 Métodos de acceso y actualización
 */
+#include <iostream>
+#include <conio.h>
+#include <string.h>
+#include "15.cpp"
+
+using namespace std;
+
+class Automovil
+{
+private:
+	int ClaveAuto;
+	char MarcaAuto[60];
+	char Modelo[60];
+	int AnioFabricacion;
+	float PrecioCompra;
+	char AsignadoA[60];
+public:
+	Automovil();
+	Automovil(int);
+	Automovil(int, char[], char[], int, float, char[]);
+	int regresaClaveAuto();
+	float regresaPrecioCompra();
+	int regresaAnioFabricacion();
+	char* regresaAsignadoA();
+	void cambiaAsignadoA(char[]);
+	int operator==(Automovil&);
+	int operator!=(Automovil&);
+	int operator<(Automovil&);
+	friend ostream& operator<<(ostream&, Automovil&);
+	friend istream& operator>>(istream&, Automovil&);
+};
+
+Automovil::Automovil()
+{ }
+
+Automovil::Automovil(int clave)
+{
+	ClaveAuto = clave;
+}
+
+Automovil::Automovil(int cla, char marca[], char modelo[], int anio, float prec, char asignA[])
+{
+	ClaveAuto = cla;
+	strcpy(MarcaAuto, marca);
+	strcpy(Modelo, modelo);
+	AnioFabricacion = anio;
+	PrecioCompra = prec;
+	strcpy(AsignadoA, asignA);
+}
+
+int Automovil::regresaClaveAuto()
+{
+	return ClaveAuto;
+}
+
+float Automovil::regresaPrecioCompra()
+{
+	return PrecioCompra;
+}
+
+int Automovil::regresaAnioFabricacion()
+{
+	return AnioFabricacion;
+}
+
+char* Automovil::regresaAsignadoA()
+{
+	return AsignadoA;
+}
+
+void Automovil::cambiaAsignadoA(char asignado[])
+{
+	strcpy(AsignadoA, asignado);
+}
+
+int Automovil::operator==(Automovil& obj)
+{
+	return ClaveAuto == obj.ClaveAuto;
+}
+
+int Automovil::operator!=(Automovil& obj)
+{
+	return ClaveAuto != obj.ClaveAuto;
+}
+
+int Automovil::operator<(Automovil& obj)
+{
+	return ClaveAuto < obj.ClaveAuto;
+}
+
+ostream& operator<<(ostream& salida, Automovil& a)
+{
+	salida << "Clave: " << a.ClaveAuto << endl;
+	salida << "Marca: " << a.MarcaAuto << endl;
+	salida << "Modelo: " << a.Modelo << endl;
+	salida << "Anio Fabricacion: " << a.AnioFabricacion << endl;
+	salida << "Precio: " << a.PrecioCompra << endl;
+	salida << "Asignado a: " << a.AsignadoA << endl;
+}
+
+istream& operator>>(istream& entrada, Automovil& a)
+{
+	cout << "Clave auto: ";
+	entrada >> a.ClaveAuto;
+	cout << "Marca: ";
+	entrada.ignore();
+	entrada.getline(a.MarcaAuto, 60);
+	cout << "Modelo: ";
+	entrada.getline(a.Modelo, 60);
+	cout << "Asignado A: ";
+	entrada.getline(a.AsignadoA, 60);
+	cout << "Anio Fabricacion: ";
+	entrada >> a.AnioFabricacion;
+	cout << "Precio: ";
+	entrada >> a.PrecioCompra;
+	
+	return entrada;
+}
+
+int menuOpciones()
+{
+	int opc;
+	
+	do {
+		cout << "1-Registrar nuevo automovil (no repe) " << endl;
+		cout << "2-Dar de baja un automovil" << endl;
+		cout << "3-Reporte de automoviles de cierto anio" << endl;
+		cout << "4-Reporte de automoviles mayores a cierto precio" << endl;
+		cout << "5-Automoviles por empleado" << endl;
+		cout << "6-Cambiar empleado asignado por clave auto" << endl;
+		cout << "7-Ver todos" << endl;
+		cout << "8-Salir del sistema" << endl;
+		cin >> opc;
+		cout << endl;
+	} while(opc < 1 || opc > 8);
+	return opc;
+}
+
+int main()
+{
+	ListaCircularDoble<Automovil> lista = ListaCircularDoble<Automovil>();
+	
+	int opc, clave, resp;
+	Automovil automovil, aux;
+	
+	do {
+		opc = menuOpciones();
+		
+		switch(opc) {
+			case 1: {
+				automovil = Automovil();
+				cin >> automovil;
+				aux = Automovil(automovil.regresaClaveAuto());
+				if(lista.buscaNodo(aux)) {
+					cout << "El automovil ya existe" << endl;
+				} else {
+					lista.insertaOrdenada(automovil);
+					cout << "Automovil ingresado" << endl;
+				}
+				break;
+			}
+			
+			case 2: {
+				cout << "Ingrese clave: ";
+				cin >> clave;
+				automovil = Automovil(clave);
+				resp = lista.eliminaNodo(automovil);
+				switch(resp) {
+					case -1: {
+						cout << "Lista vacia" << endl;
+						break;
+					}
+					case 0: {
+						cout << "No se encontro automovil" << endl;
+						break;
+					}
+					case 1: {
+						cout << "Automovil fue dado de baja" << endl;
+						break;
+					}
+				}
+				break;
+			}
+			
+			case 3: {
+				
+				break;
+			}
+			case 4: {
+				
+				break;
+			}
+			case 5: {
+				
+				break;
+			}
+			case 6: {
+				
+				break;
+			}
+			case 7: {
+				cout << "\nLista de automoviles: \n";
+				lista.imprimeLista();
+				break;
+			}
+			case 8: {
+				cout << "Fin del programa" << endl;
+				break;
+			}
+		}
+		
+		getch();
+		
+	} while(opc != 8);
+	
+	return 0;
+}
