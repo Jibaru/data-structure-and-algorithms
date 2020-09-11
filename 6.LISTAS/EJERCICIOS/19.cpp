@@ -55,6 +55,7 @@ public:
     void InsertaFinal(T);
     int EliminaUnNodo(T);
     NodoLista<T> * Busca(T);
+    int tamanio();
 };
 
 /* Declaración del método constructor por omisión. Inicializa con el 
@@ -240,6 +241,23 @@ NodoLista<T> * Lista<T>::Busca(T Ref)
     }
 
     return Resp;
+}
+
+/*
+Método que devuelve la cantidad de nodos que existen en la lista
+*/
+template <class T>
+int Lista<T>::tamanio()
+{
+    int sum = 0;
+    if(Primero) {
+        NodoLista<T>* aux = Primero;
+        while(aux != NULL) {
+            sum ++;
+            aux = aux->Liga;
+        }
+    }
+    return sum;
 }
 
 /*
@@ -590,18 +608,18 @@ int menuOpciones()
 
 int main()
 {
-	int opc;
+	int opc, resp, mayor;
 	Lista<Marca> marcas = Lista<Marca>();
 	
 	// Auxiliares
 	Marca marca;
 	Modelo modelo;
 	Version version;
-	char nombreMarca[60], nombreModelo[60];
+	char nombreMarca[60], nombreModelo[60], nombreVersion[60];
 	Lista<Modelo>* modelosDeMarca;
 	Lista<Version> *versionesDeModelo;
-	NodoLista<Marca>* nodoMarca;
-	NodoLista<Modelo> *nodoModelo;
+	NodoLista<Marca>* nodoMarca, *itMarca;
+	NodoLista<Modelo> *nodoModelo, *itModelo;
 	NodoLista<Version> *nodoVersion;
 	do {
 		opc = menuOpciones();
@@ -659,15 +677,98 @@ int main()
 				break;
 			}
 			case 4: {
-				
+				cout << "Nombre de marca a eliminar: ";
+                cin.ignore();
+                cin.getline(nombreMarca, 60);
+                marca = Marca(nombreMarca);
+
+                resp = marcas.EliminaUnNodo(marca);
+                switch(resp) {
+                    case -1: {
+                        cout << "Lista vacia" << endl;
+                        break;
+                    }
+                    case 0: {
+                        cout << "No se encontra la marca" << endl;
+                        break;
+                    }
+                    case 1: {
+                        cout << "Marca eliminada" << endl;
+                        break;
+                    }
+                }
 				break;
 			}
 			case 5: {
-				
+				cout << "Nombre de marca: ";
+                cin.ignore();
+                cin.getline(nombreMarca, 60);
+                marca = Marca(nombreMarca);
+                nodoMarca = marcas.Busca(marca);
+                if(nodoMarca) {
+                    modelosDeMarca = nodoMarca->RegresaInfo()->regresaModelos();
+                    cout << "Nombre modelo a eliminar: " << endl;
+                    cin.ignore();
+                    cin.getline(nombreModelo, 60);
+                    modelo = Modelo(nombreModelo);
+                    resp = modelosDeMarca->EliminaUnNodo(modelo);
+                    switch(resp) {
+                        case -1: {
+                            cout << "Lista vacia" << endl;
+                            break;
+                        }
+                        case 0: {
+                            cout << "No se encontra el modelo" << endl;
+                            break;
+                        }
+                        case 1: {
+                            cout << "Modelo eliminado" << endl;
+                            break;
+                        }
+                    }
+                } else {
+                    cout << "No se encontro la marca" << endl;
+                }
 				break;
 			}
 			case 6: {
-				
+				cout << "Nombre de marca: ";
+                cin.ignore();
+                cin.getline(nombreMarca, 60);
+                marca = Marca(nombreMarca);
+                nodoMarca = marcas.Busca(marca);
+                if(nodoMarca) {
+                    modelosDeMarca = nodoMarca->RegresaInfo()->regresaModelos();
+                    cout << "Nombre de modelo: " << endl;
+                    cin.getline(nombreModelo, 60);
+                    modelo = Modelo(nombreModelo);
+                    nodoModelo = modelosDeMarca->Busca(modelo);
+                    if(nodoModelo) {
+                        versionesDeModelo = nodoModelo->RegresaInfo()->regresaVersiones();
+                        cout << "Nombre de version a eliminar: " << endl;
+                        cin.getline(nombreVersion, 60);
+                        version = Version(nombreVersion);
+                        resp = versionesDeModelo->EliminaUnNodo(version);
+                        switch(resp) {
+                            case -1: {
+                                cout << "Lista vacia" << endl;
+                                break;
+                            }
+                            case 0: {
+                                cout << "No se encontra la version" << endl;
+                                break;
+                            }
+                            case 1: {
+                                cout << "Version eliminada" << endl;
+                                break;
+                            }
+                        }
+                    } else {
+                        cout << "No se encontro el modelo" << endl;
+                    }
+                } else {
+                    cout << "No se encontro la marca" << endl;
+                }
 				break;
 			}
 			case 7: {
@@ -676,11 +777,41 @@ int main()
 				break;
 			}
 			case 8: {
-				
+                mayor = -1;
+				for(itMarca = marcas.RegresaPrimero();
+                    itMarca != NULL;
+                    itMarca = itMarca->RegresaSiguiente()) 
+                {
+                    resp = itMarca->RegresaInfo()->regresaModelos()->tamanio();
+                    if(mayor < resp) {
+                        mayor = resp;
+                        nodoMarca = itMarca;
+                    }
+                }
+                cout << "Marca con mayor cantidad de modelos (" << mayor << "): " << endl;
+                cout << *(nodoMarca->RegresaInfo()) << endl;
 				break;
 			}
 			case 9: {
-				
+                mayor = -1;
+				for(itMarca = marcas.RegresaPrimero();
+                    itMarca != NULL;
+                    itMarca = itMarca->RegresaSiguiente()) 
+                {
+                    modelo = Modelo((char*)"", -9999);
+                    for(itModelo = itMarca->RegresaInfo()->regresaModelos()->RegresaPrimero();
+                        itModelo != NULL;
+                        itModelo = itModelo->RegresaSiguiente())
+                    {
+                        resp = itModelo->RegresaInfo()->regresaVersiones()->tamanio();
+                        if(mayor < resp) {
+                            mayor = resp;
+                            modelo = *(itModelo->RegresaInfo());
+                        }
+                    }
+                }
+                cout << "Modelo con la mayor cantidad de versiones (" << mayor << "): " << endl;
+                cout << modelo << endl;
 				break;
 			}
 			case 10: {
