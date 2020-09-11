@@ -88,7 +88,6 @@ Lista<T>::~Lista()
 	}
 }
 
-
 /* Método que regresa la dirección del primer nodo de la lista. */
 template <class T>
 NodoLista<T> * Lista<T>::RegresaPrimero()
@@ -135,7 +134,7 @@ void Lista<T>::ImprimeIterativo()
 
     while (P)
     {
-        std::cout<< "\nInformacion: "<< P->Info;
+        std::cout<< "\nInformacion: \n"<< P->Info;
         P= P->Liga;
     }
     std::cout<< "\n";
@@ -168,7 +167,6 @@ void Lista<T>::InsertaFinal(T Dato)
         será el primero de la misma. */
         Primero= P;
     }
-    std::cout << "Primero: " << Primero->Info << std::endl;
 }
 
 /* Método que elimina un nodo que almacena cierta información. Recibe 
@@ -235,15 +233,15 @@ Clase Modelo de auto
 class Modelo
 {
 private:
-    char* nombre;
+    char nombre[60];
     float precio;
 public:
     Modelo();
-    Modelo(char*, float);
-    Modelo(char*);
+    Modelo(char[], float);
+    Modelo(char[]);
     ~Modelo();
     char* regresaNombre();
-    void cambiaNombre(char*);
+    void cambiaNombre(char[]);
     float regresaPrecio();
     int operator==(Modelo&);
     int operator!=(Modelo&);
@@ -255,51 +253,30 @@ public:
 Constructor vacio
 */
 Modelo::Modelo()
-{
-    nombre = NULL;
-}
+{}
 
 /*
 Constructor con parametros
 */
-Modelo::Modelo(char* nombre, float precio)
+Modelo::Modelo(char nombre[], float precio)
 {
-    if(this->nombre) {
-        delete this->nombre;
-    }
-
-    this->nombre = new char[strlen(nombre) + 1];
-    if(this->nombre != NULL) {
-        strcpy(this->nombre, nombre);
-    }
+    strcpy(this->nombre, nombre);
     this->precio = precio;
 }
 
 /*
 Constructor con parametros
 */
-Modelo::Modelo(char* nombre)
+Modelo::Modelo(char nombre[])
 {
-    if(this->nombre) {
-        delete this->nombre;
-    }
-
-    this->nombre = new char[strlen(nombre) + 1];
-    if(this->nombre != NULL) {
-        strcpy(this->nombre, nombre);
-    }
-
+	strcpy(this->nombre, nombre);
 }
 
 /*
 Destructor de Modelo
 */
 Modelo::~Modelo()
-{
-    if(nombre) {
-        delete nombre;
-    }
-}
+{}
 
 /*
 Metodo que regresa el nombre del modelo
@@ -312,16 +289,9 @@ char* Modelo::regresaNombre()
 /*
 Metodo que permite cambiar el nombre del modelo
 */
-void Modelo::cambiaNombre(char* nombre)
+void Modelo::cambiaNombre(char nombre[])
 {
-    if(this->nombre) {
-        delete this->nombre;
-    }
-
-    this->nombre = new char[strlen(nombre) + 1];
-    if(this->nombre != NULL) {
-        strcpy(this->nombre, nombre);
-    }
+	strcpy(this->nombre, nombre);
 }
 
 /*
@@ -353,11 +323,10 @@ Sobreescritura del operator >>
 */
 std::istream& operator>>(std::istream& entrada, Modelo& m)
 {
-    char nomAux[60];
+
     std::cout << "Nombre Modelo: ";
     entrada.ignore();
-    entrada.getline(nomAux, 60);
-    m.cambiaNombre(nomAux);
+    entrada.getline(m.nombre, 60);
     std::cout << "Precio Modelo: ";
     entrada >> m.precio;
     
@@ -380,14 +349,14 @@ Clase Marca de auto
 class Marca 
 {
 private:
-    char* nombre;
-    Lista<Modelo> modelos;
+    char nombre[60];
+    Lista<Modelo>* modelos;
 public:
     Marca();
-    Marca(char*);
+    Marca(char[]);
     ~Marca();
     char* regresaNombre();
-    void cambiaNombre(char*);
+    void cambiaNombre(char[]);
     Lista<Modelo>* regresaModelos();
     int operator==(Marca&);
     int operator!=(Marca&);
@@ -400,35 +369,23 @@ Constructor vacio de Marca
 */
 Marca::Marca()
 {
-    nombre = NULL;
-    modelos = Lista<Modelo>();
+    modelos = new Lista<Modelo>();
 }
 
 /*
 Constructor con parametros
 */
-Marca::Marca(char* nombre)
+Marca::Marca(char nombre[])
 {
-    if(this->nombre) {
-        delete this->nombre;
-    }
-
-    this->nombre = new char[strlen(nombre) + 1];
-    if(this->nombre != NULL) {
-        strcpy(this->nombre, nombre);
-    }
-    modelos = Lista<Modelo>();
+	strcpy(this->nombre, nombre);
+    modelos = new Lista<Modelo>();
 }
 
 /*
 Destructor de Marca
 */
 Marca::~Marca()
-{
-    if(nombre){
-        delete nombre;
-    }
-}
+{}
 
 /*
 Metodo que regresa el nombre del Marca
@@ -441,16 +398,9 @@ char* Marca::regresaNombre()
 /*
 Metodo que permite cambiar el nombre del Marca
 */
-void Marca::cambiaNombre(char* nombre)
+void Marca::cambiaNombre(char nombre[])
 {
-    if(this->nombre) {
-        delete this->nombre;
-    }
-
-    this->nombre = new char[strlen(nombre) + 1];
-    if(this->nombre != NULL) {
-        strcpy(this->nombre, nombre);
-    }
+	strcpy(this->nombre, nombre);
 }
 
 /*
@@ -459,7 +409,7 @@ de la marca
 */
 Lista<Modelo>* Marca::regresaModelos()
 {
-    return &modelos;
+    return modelos;
 }
 
 /*
@@ -483,14 +433,12 @@ Sobreescritura del operator >>
 */
 std::istream& operator>>(std::istream& entrada, Marca& m)
 {
-    char nomAux[60];
+
     std::cout << "Nombre Marca: ";
     entrada.ignore();
-    entrada.getline(nomAux, 60);
-    m.cambiaNombre(nomAux);
-    
-    //m.modelos.CreaInicio();
-    
+    entrada.getline(m.nombre, 60);
+
+    m.modelos->CreaInicio();
     return entrada;
 }
 
@@ -500,7 +448,7 @@ Sobreescritura del operator <<
 std::ostream& operator<<(std::ostream& salida, Marca& m)
 {
     salida << "Nombre Marca: " << m.nombre << std::endl;
-    //salida << "Modelos: " << std::endl;
-    //m.modelos.ImprimeIterativo();
+    salida << "Modelos: " << std::endl;
+    m.modelos->ImprimeIterativo();
     return salida;
 }
