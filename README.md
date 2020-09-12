@@ -18,8 +18,8 @@ Editorial Pearson 2007 - Primera Edición
 - 3. Sobrecarga, plantillas y polimorfismo
 - 4. Arreglos
 - 5. Pilas y colas
-- 6. Listas <-
-- 7. Árboles
+- 6. Listas
+- 7. Árboles <-
 - 8. Gráficas
 - 9. Ordenación
 - 10. Búsqueda
