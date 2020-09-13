@@ -219,7 +219,7 @@ void ArbolBinBus<T>::EliminaNodo(NodoArbol<T> *Apunt, T Dato)
                         derecha del subárbol izquierdo. */ 
                         ApAux1= ApAux3->HijoIzq;
                         ApAux2= ApAux3;
-                        While (ApAux1->HijoDer)
+                        while (ApAux1->HijoDer)
                         {
                             ApAux2= ApAux1;
                             ApAux1= ApAux1->HijoDer;
