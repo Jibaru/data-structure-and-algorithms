@@ -94,7 +94,7 @@ template <class T>
 NodoArbolBal<T> * ArbolBalanceado<T>::Busca (NodoArbolBal<T> *Apunt, T Dato)
 {
     if (Apunt != NULL)
-        if (Apunt->Info = Dato)
+        if (Apunt->Info == Dato)
             return Apunt;
         else
             if (Apunt->Info > Dato)
@@ -154,7 +154,7 @@ NodoArbolBal<T> * ArbolBalanceado<T>::RotacionHI_HD(NodoArbolBal<T> *Apunt, Nodo
     Apunt->HijoIzq= ApAux2->HijoDer;
     ApAux2->HijoDer= Apunt;
     ApAux1->HijoDer= ApAux2->HijoIzq;
-    ApAux2->HijoIzq= ApAuxl;
+    ApAux2->HijoIzq= ApAux1;
     if (ApAux2->FE == -1)
         Apunt->FE= 1;
     else
@@ -251,9 +251,9 @@ void ArbolBalanceado<T>::InsertaBalanceado(T Dato, NodoArbolBal<T> *Apunt, int *
                         case 1: {
                             ApAux1= Apunt->HijoDer;
                             if (ApAux1->FE >= 0)
-                                Apunt= RotacionHD_HD(Apunt, *ApAux1) ;
+                                Apunt= RotacionHD_HD(Apunt, ApAux1) ;
                             else
-                                Apunt= RotacionHD_HI(Apunt, *ApAux1);
+                                Apunt= RotacionHD_HI(Apunt, ApAux1);
                             Apunt->FE = 0;
                             *Band= 0;
                         }

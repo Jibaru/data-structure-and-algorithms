@@ -18,9 +18,9 @@ private:
     char Nombre[MAX], Domicilio[MAX], Telefono[MAX];
 public:
     Fabrica();
-    Fabrica(int, char [], char[], char[]);
-    void CambiaDomic(char[]);
-    void CambiaTelef(char[]);
+    Fabrica(int, const char [], const char[], const char[]);
+    void CambiaDomic(const char[]);
+    void CambiaTelef(const char[]);
     int operator>(Fabrica);
     int operator<(Fabrica);
     int operator==(Fabrica);

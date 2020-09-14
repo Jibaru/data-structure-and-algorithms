@@ -7,7 +7,7 @@ Fabrica::Fabrica()
 {}
 
 /* Declaración del método constructor con parámetros. */
-Fabrica::Fabrica(int Cla, char Nom[], char Domic[], char Tel[])
+Fabrica::Fabrica(int Cla, const char Nom[], const char Domic[], const char Tel[])
 {
     Clave= Cla;
     strcpy(Nombre, Nom);
@@ -16,13 +16,13 @@ Fabrica::Fabrica(int Cla, char Nom[], char Domic[], char Tel[])
 }
 
 /* Método que actualiza el domicilio de una fábrica. */
-void Fabrica::CambiaDomic(char NuevoDom[])
+void Fabrica::CambiaDomic(const char NuevoDom[])
 {
     strcpy(Domicilio, NuevoDom);
 }
 
 /* Método que actualiza el teléfono de una fábrica. */
-void Fabrica::CambiaTelef(char NuevoTel[])
+void Fabrica::CambiaTelef(const char NuevoTel[])
 {
     strcpy(Telefono, NuevoTel);
 }
@@ -76,11 +76,11 @@ std::istream & operator>> (std::istream & Lee, Fabrica & ObjFab)
 tipo Fabrica de manera directa con el std::cout. */
 std::ostream & operator<<(std::ostream & Escribe, Fabrica & ObjFab)
 {
-    std::cout << "\n\nDatos de la fábrica\n";
+    std::cout << "\n\nDatos de la fabrica\n";
     Escribe << "Nombre: " << ObjFab.Nombre << std::endl;
     Escribe << "Clave: " << ObjFab.Clave << std::endl;
     Escribe << "Domicilio: " << ObjFab.Domicilio << std::endl;
-    Escribe << "Telófono: " << ObjFab.Telefono << std::endl;
+    Escribe << "Telefono: " << ObjFab.Telefono << std::endl;
     
     return Escribe;
 }
