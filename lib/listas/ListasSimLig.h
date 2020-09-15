@@ -50,6 +50,7 @@ public:
     NodoLista<T> * BuscaDesordenada(T);
     NodoLista<T> * BuscaOrdenada(T);
     NodoLista<T> * BuscaRecursivo(T, NodoLista<T> *);
+    int tamanio();
 };
 
 /* Declaración del método constructor por omisión. Inicializa con el 
@@ -537,6 +538,18 @@ NodoLista<T> * Lista<T>::BuscaRecursivo(T Dato, NodoLista<T> * Q)
             return BuscaRecursivo(Dato, Q->Liga);
     else
         return NULL;
+}
+
+template <class T>
+int Lista<T>::tamanio()
+{
+    int tam = 0;
+    NodoLista<T>* aux = Primero;
+    while(aux) {
+        tam++;
+        aux = aux->Liga;
+    }
+    return tam;
 }
 
 #endif
