@@ -241,7 +241,7 @@ void testEjercicio1()
 }
 
 int main()
-{   
+{  
     testEjercicio1();
     return 0;
 }
