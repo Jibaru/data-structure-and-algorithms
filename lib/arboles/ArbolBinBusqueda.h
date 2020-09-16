@@ -68,6 +68,7 @@ public:
     int ContarNodosIntermedios(NodoArbol<T>*);
     int NumeroHojas();
     int NumeroNodosIntermedios();
+    int Altura(NodoArbol<T>* nodo = NULL, int alturaAcum = 1);
 };
 
 /* Declaración del método constructor. Inicializa el puntero a la raíz 
@@ -305,6 +306,33 @@ template <class T>
 int ArbolBinBus<T>::NumeroNodosIntermedios()
 {
     return ContarNodosIntermedios(Raiz);
+}
+
+/* Método que devuelve la altura de un árbol a partir de un nodo */
+template <class T>
+int ArbolBinBus<T>::Altura(NodoArbol<T>* nodo, int alturaAcum)
+{
+    int mayorAltura = 0, altDer = 0, altIzq = 0;
+    if(nodo == NULL) {
+        nodo = Raiz;
+    }
+
+    if(nodo->HijoDer == NULL && nodo->HijoIzq == NULL) {
+        return alturaAcum;
+    } else {
+        if(nodo->HijoDer) {
+            altDer = Altura(nodo->HijoDer, alturaAcum + 1);
+        }
+        if(nodo->HijoIzq) {
+            altIzq = Altura(nodo->HijoIzq, alturaAcum + 1);
+        }
+        if(altDer > altIzq) {
+            mayorAltura = altDer;
+        } else {
+            mayorAltura = altIzq;
+        }
+    }
+    return mayorAltura;
 }
 
 #endif /* _ARBOL_BIN_BUSQUEDA_ */
