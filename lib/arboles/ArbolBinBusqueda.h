@@ -64,6 +64,8 @@ public:
     NodoArbol<T> * Busqueda (NodoArbol<T> *, T);
     void InsertaNodoSinRep (NodoArbol<T> *, T);
     void EliminaNodo (NodoArbol<T> *, T);
+    int ContarNodosHoja(NodoArbol<T>*);
+    int NumeroHojas();
 };
 
 /* Declaración del método constructor. Inicializa el puntero a la raíz 
@@ -241,6 +243,34 @@ void ArbolBinBus<T>::EliminaNodo(NodoArbol<T> *Apunt, T Dato)
                 delete(ApAux3);
             }
             Raiz= Apunt;
+}
+
+/* Método que cuenta los nodos hoja a partir de un nodo */
+template <class T>
+int ArbolBinBus<T>::ContarNodosHoja(NodoArbol<T>* nodo)
+{
+    int sumDer = 0, sumIzq = 0;
+    if(nodo->HijoDer == NULL && nodo->HijoIzq == NULL) {
+        return 1;
+    } else {
+        if(nodo->HijoDer) {
+            sumDer = ContarNodosHoja(nodo->HijoDer);
+        }
+        if(nodo->HijoIzq) {
+            sumIzq = ContarNodosHoja(nodo->HijoIzq);
+        }
+    } 
+    
+    return  sumDer + sumIzq;
+    
+}
+
+/* Método que devuelve el número de hojas del árbol
+binario */
+template <class T>
+int ArbolBinBus<T>::NumeroHojas()
+{
+    return ContarNodosHoja(Raiz);
 }
 
 #endif /* _ARBOL_BIN_BUSQUEDA_ */
