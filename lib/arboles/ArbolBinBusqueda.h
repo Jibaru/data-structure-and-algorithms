@@ -65,7 +65,9 @@ public:
     void InsertaNodoSinRep (NodoArbol<T> *, T);
     void EliminaNodo (NodoArbol<T> *, T);
     int ContarNodosHoja(NodoArbol<T>*);
+    int ContarNodosIntermedios(NodoArbol<T>*);
     int NumeroHojas();
+    int NumeroNodosIntermedios();
 };
 
 /* Declaración del método constructor. Inicializa el puntero a la raíz 
@@ -265,12 +267,44 @@ int ArbolBinBus<T>::ContarNodosHoja(NodoArbol<T>* nodo)
     
 }
 
+
+/* Método que cuenta los nodos intermedios a partir de un nodo */
+template <class T>
+int ArbolBinBus<T>::ContarNodosIntermedios(NodoArbol<T>* nodo)
+{
+    int sumDer = 0, sumIzq = 0, actual = 0;
+    if(nodo->HijoDer == NULL && nodo->HijoIzq == NULL) {
+        return 0;
+    } else {
+        if(nodo != Raiz) {
+            actual = 1;
+        }
+        if(nodo->HijoDer) {
+            sumDer = ContarNodosIntermedios(nodo->HijoDer);
+        }
+        if(nodo->HijoIzq) {
+            sumIzq = ContarNodosIntermedios(nodo->HijoIzq);
+        }
+    } 
+    
+    return  sumDer + sumIzq + actual;
+    
+}
+
 /* Método que devuelve el número de hojas del árbol
 binario */
 template <class T>
 int ArbolBinBus<T>::NumeroHojas()
 {
     return ContarNodosHoja(Raiz);
+}
+
+/* Método que devuelve el número de nodos intermedios del árbol
+binario */
+template <class T>
+int ArbolBinBus<T>::NumeroNodosIntermedios()
+{
+    return ContarNodosIntermedios(Raiz);
 }
 
 #endif /* _ARBOL_BIN_BUSQUEDA_ */
