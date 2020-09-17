@@ -51,6 +51,8 @@ public:
     int eliminar(T);
     NodoArbolMultiple<T>* buscar(T, NodoArbolMultiple<T>*);
     void imprimir(NodoArbolMultiple<T>* ref= NULL);
+    int nodoSimilar(NodoArbolMultiple<T>*, NodoArbolMultiple<T>*);
+    int similar(ArbolMultiple<T>);
 };
 
 template <class T>
@@ -218,6 +220,34 @@ void ArbolMultiple<T>::imprimir(NodoArbolMultiple<T>* ref)
 
 }
 
+template <class T>
+int ArbolMultiple<T>::nodoSimilar(NodoArbolMultiple<T>* nodo1, NodoArbolMultiple<T>* nodo2)
+{
+    
+    if(nodo1->cantidadNodos == nodo2->cantidadNodos) {
+        if(nodo1->cantidadNodos == 0) {
+            return 1;
+        } else {
+            int resp = 0;
+            for(int i = 0; i < nodo1->cantidadNodos; i++) {
+                resp = nodoSimilar(nodo1->nodos[i], nodo2->nodos[i]);
+                if(resp == 0) {
+                    return resp;
+                }
+            }
+            return resp;
+        }
+    } else {
+        return 0;
+    }
+}
+
+template <class T>
+int ArbolMultiple<T>::similar(ArbolMultiple<T> obj)
+{
+    return nodoSimilar(raiz, obj.raiz);
+}
+
 void testEjercicio1()
 {
     ArbolMultiple<int> arbolMultiple = ArbolMultiple<int>();
@@ -238,10 +268,4 @@ void testEjercicio1()
     std::cout << "\nElimina 3: " << arbolMultiple.eliminar(3);
     std::cout << "\nElimina 165: " << arbolMultiple.eliminar(165);
     arbolMultiple.imprimir();
-}
-
-int main()
-{  
-    testEjercicio1();
-    return 0;
 }
