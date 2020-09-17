@@ -69,6 +69,8 @@ public:
     int NumeroHojas();
     int NumeroNodosIntermedios();
     int Altura(NodoArbol<T>* nodo = NULL, int alturaAcum = 1);
+    int NodoCompleto(NodoArbol<T>*);
+    int EsCompleto();
 };
 
 /* Declaración del método constructor. Inicializa el puntero a la raíz 
@@ -333,6 +335,37 @@ int ArbolBinBus<T>::Altura(NodoArbol<T>* nodo, int alturaAcum)
         }
     }
     return mayorAltura;
+}
+
+/* Método que verifica si un nodo y sus subnodos (excepto las hojas) 
+son completos */
+template <class T>
+int ArbolBinBus<T>::NodoCompleto(NodoArbol<T>* nodo)
+{
+    if(nodo->HijoDer == NULL && nodo->HijoIzq == NULL) {
+        // es un nodo hoja
+        return 1;
+    } else if (nodo->HijoDer == NULL ||nodo->HijoIzq == NULL) {
+        // no es completo
+        return 0;
+    } else if (nodo->HijoDer != NULL && nodo->HijoIzq != NULL) {
+        // es completo
+        int der = NodoCompleto(nodo->HijoDer);
+        int izq = NodoCompleto(nodo->HijoIzq);
+
+        if(der == 1 && izq == 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
+
+/* Método que verifica si una arbol binario es completo */
+template <class T>
+int ArbolBinBus<T>::EsCompleto()
+{
+    return NodoCompleto(Raiz);
 }
 
 #endif /* _ARBOL_BIN_BUSQUEDA_ */
