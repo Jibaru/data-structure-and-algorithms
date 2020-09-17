@@ -52,7 +52,9 @@ public:
     NodoArbolMultiple<T>* buscar(T, NodoArbolMultiple<T>*);
     void imprimir(NodoArbolMultiple<T>* ref= NULL);
     int nodoSimilar(NodoArbolMultiple<T>*, NodoArbolMultiple<T>*);
+    int nodoIgual(NodoArbolMultiple<T>*, NodoArbolMultiple<T>*);
     int similar(ArbolMultiple<T>);
+    int igual(ArbolMultiple<T>);
 };
 
 template <class T>
@@ -243,9 +245,41 @@ int ArbolMultiple<T>::nodoSimilar(NodoArbolMultiple<T>* nodo1, NodoArbolMultiple
 }
 
 template <class T>
+int ArbolMultiple<T>::nodoIgual(NodoArbolMultiple<T>* nodo1, NodoArbolMultiple<T>* nodo2)
+{
+    
+    if(nodo1->cantidadNodos == nodo2->cantidadNodos) {
+        if(nodo1->cantidadNodos == 0) {
+            if(nodo1->info == nodo2->info) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            int resp = 0;
+            for(int i = 0; i < nodo1->cantidadNodos; i++) {
+                resp = nodoSimilar(nodo1->nodos[i], nodo2->nodos[i]);
+                if(resp == 0) {
+                    return resp;
+                }
+            }
+            return resp;
+        }
+    } else {
+        return 0;
+    }
+}
+
+template <class T>
 int ArbolMultiple<T>::similar(ArbolMultiple<T> obj)
 {
     return nodoSimilar(raiz, obj.raiz);
+}
+
+template <class T>
+int ArbolMultiple<T>::igual(ArbolMultiple<T> obj)
+{
+    return nodoIgual(raiz, obj.raiz);
 }
 
 void testEjercicio1()
