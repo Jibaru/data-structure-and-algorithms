@@ -71,6 +71,8 @@ public:
     int Altura(NodoArbol<T>* nodo = NULL, int alturaAcum = 1);
     int NodoCompleto(NodoArbol<T>*);
     int EsCompleto();
+    void ImprimeNivel(NodoArbol<T>* nodo, int nivel);
+    void ImprimePorNiveles();
 };
 
 /* Declaración del método constructor. Inicializa el puntero a la raíz 
@@ -366,6 +368,33 @@ template <class T>
 int ArbolBinBus<T>::EsCompleto()
 {
     return NodoCompleto(Raiz);
+}
+
+/* Método que imprime por los nodos de un nivel del árbol */
+template <class T>
+void ArbolBinBus<T>::ImprimeNivel(NodoArbol<T>* nodo, int nivel)
+{
+    if (nodo == NULL) 
+        return; 
+    if (nivel == 1) 
+        std::cout << nodo->Info << " ";
+    else if (nivel > 1) 
+    { 
+        ImprimeNivel(nodo->HijoIzq, nivel-1); 
+        ImprimeNivel(nodo->HijoDer, nivel-1); 
+    } 
+
+}
+
+/* Método que imprime por niveles los nodos de un arbol */
+template <class T>
+void ArbolBinBus<T>::ImprimePorNiveles()
+{
+    int altura = Altura(); 
+    int i;
+    for (i = 1; i <= altura; i++) { 
+        ImprimeNivel(Raiz, i);
+    }
 }
 
 #endif /* _ARBOL_BIN_BUSQUEDA_ */
