@@ -154,7 +154,7 @@ void DiGrafica<T>::Imprime(int Opc)
         impresión complementa la de la opción 2 cuando se aplica el 
         método FloydVerInt. */
         case 3: 
-            std::cout << "\n\n Vértices Intermedios para lograr distancias mínimas: " << std::endl;
+            std::cout << "\n\n Vertices Intermedios para lograr distancias minimas: " << std::endl;
             for (Ind1= 0; Ind1 < NumVer; Ind1++)
             {
                 for (Ind2= 0; Ind2 < NumVer; Ind2++)
@@ -189,7 +189,7 @@ void DiGrafica<T>::Warshall()
     /* En la posición i,j de la matriz de adyacencia se asignó el valor 999 
     si no existe un camino directo del vértice i al vértice j. La cerradura 
     transitiva se forma inicialmente a partir de la matriz de adyacencia. */
-    for (Ind1= 0; Indi < NumVer; Ind1++)
+    for (Ind1= 0; Ind1 < NumVer; Ind1++)
         for (Ind2= 0; Ind2 < NumVer; Ind2++)
             if (MatAdy[Ind1][Ind2] != 999)
                 CerTran[Ind1][Ind2]= 1;
@@ -214,7 +214,7 @@ void DiGrafica<T>::Floyd()
     for (Ind3= 0; Ind3 < NumVer; Ind3++)
         for (Ind1= 0; Ind1 < NumVer; Ind1++)
             for (Ind2= 0; Ind2 < NumVer; Ind2++)
-                if ( (MatAdy[Ind1][Ind3] + MatAdy[Ind3][Ind2]) < MatAdy[Indi][Ind2])
+                if ( (MatAdy[Ind1][Ind3] + MatAdy[Ind3][Ind2]) < MatAdy[Ind1][Ind2])
                     MatAdy[Ind1][Ind2]= MatAdy[Ind1][Ind3] + MatAdy[Ind3][Ind2];
 }
 
@@ -231,7 +231,7 @@ void DiGrafica<T>::FloydVerInt()
     for (Ind3= 0; Ind3 < NumVer; Ind3++)
         for (Ind1= 0; Ind1 < NumVer; Ind1++)
             for (Ind2= 0; Ind2 < NumVer; Ind2++)
-                if ((MatAdy[Indi][Ind3] + MatAdy[Ind3][Ind2]) < MatAdy[Ind1][Ind2]) {
+                if ((MatAdy[Ind1][Ind3] + MatAdy[Ind3][Ind2]) < MatAdy[Ind1][Ind2]) {
                     MatAdy[Ind1][Ind2] = MatAdy[Ind1][Ind3] + MatAdy[Ind3][Ind2];
                     VerInt[Ind1][Ind2] = Vertices[Ind3];
                 }
@@ -250,13 +250,13 @@ void DiGrafica<T>::Dijkstra()
     por ser los de la distancia minima. El arreglo Aux es un arreglo 
     lógico que indica si el nodo de la posición i ya fue incluido en 
     VertInc y de esta manera evitar ciclos. */
-    for (Ind1= 0; Indi < NumVer; Ind1++)
+    for (Ind1= 0; Ind1 < NumVer; Ind1++)
     {
         Aux[Ind1]= 0;
         VertInc[Ind1]= 0;
     }
 
-    std::cou << "\n\n Ingrese vertice origen: ";
+    std::cout << "\n\n Ingrese vertice origen: ";
     std::cin >> Origen;
 
     Aux[Origen - 1]= 1;
