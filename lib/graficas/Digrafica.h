@@ -381,7 +381,8 @@ int DiGrafica<T>::DepthFirst(int NivelProf)
     while (!NoVisitado.ListaVacia() && !EstadoFinal)
     {
         /* Se saca el primer elemento de NoVisitado. */
-        VertiX= NoVisitado.EliminaPrimero();
+        Vertix= NoVisitado.RegresaPrimero()->RegresaInfo();
+        NoVisitado.EliminaPrimero();
         
         /* Se evalúa si el vértice no está en Visitado y si no se alcanzó 
         la profundidad limite. */
@@ -393,7 +394,8 @@ int DiGrafica<T>::DepthFirst(int NivelProf)
             ListaAux= VerticesAdyacentes(BuscaVertice(VertiX));
             while (!ListaAux.ListaVacia() && !EstadoFinal)
             {
-                VertiX= ListaAux.EliminaPrimero();
+                Vertix= ListaAux.RegresaPrimero()->RegresaInfo();
+                ListaAux.EliminaPrimero();
                 if (BuscaVertice(VertiX) != NumVer-1 && !VisitaAux[BuscaVertice(VertiX)])
                 {
                     NoVisitado.InsertaInicio(VertiX);
