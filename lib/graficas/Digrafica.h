@@ -2,6 +2,7 @@
 #define _DIGRAFICA_H_
 
 #include <iostream>
+#include "../listas/ListasSimLig.h"
 
 /* Constante usada para establecer el número máximo de vórtices de la 
 digráfica. */
@@ -46,6 +47,11 @@ public:
     void Floyd();
     void FloydVerInt();
     void Dijkstra();
+
+    int BuscaVertice(T VertiDato);
+    Lista<T> VerticesAdyacentes(int VertiDato);
+    int DepthFirst(int NivelProf);
+
 };
 
 /* Declaración del método constructor. Inicializa la matriz de adyacencias 
@@ -307,6 +313,111 @@ void DiGrafica<T>::Dijkstra()
             Ver2++;
         }
     }
+}
+
+/* Método entero que determina si un vértice dado como parámetro es o 
+no un vértice de la digráfica. Regresa la posición en la que lo encuentra
+o un negativo. */
+template <class T>
+int DiGrafica<T>::BuscaVertice(T VertiDato)
+{
+    int Indice= 0, Resp= -1;
+    
+    /* Busca el nombre del vértice dado en el arreglo que guarda los 
+    nombres de todos los vértices de la gráfica. */
+    while (Indice < NumVer && Vertices[Indice] != VertiDato)
+        Indice++;
+    
+    if (Indice < NumVer)
+        Resp= Indice;
+    
+    return Resp;
+}
+
+/* Método que genera una lista con los vértices adyacentes de un vértice 
+dado como parámetro. Recibe como parámetro el nombre de un vértice y da 
+como resultado una lista con sus vértices adyacentes. */
+template <class T>
+Lista<T> DiGrafica<T>::VerticesAdyacentes(int VertiDato)
+{
+    int Indice;
+    Lista <T> Adyacentes;
+    for (Indice= 0; Indice < NumVer; Indice++)
+        if (MatAdy[VertiDato][Indice] != 0)
+            Adyacentes.InsertaFinal(Vertices[Indice]);
+            
+    return Adyacentes;
+}
+
+/* Este método busca una soución (estado final) de un problema
+representado por medio de una gráfica. Recibe como parámetro el nivel
+máximo de profundidad permitido. En esta implementación se considera
+el estado final como el último vértice de la digráfica. Regresa uno si
+llega al estado meta y cero en caso contrario. En el método se usan los
+atributos definidos en la clase DiGrafica. Se declaran tres objetos
+de la clase Lista para almacenar los vértices que se van visitando
+y los pendientes de visitar, asi como una lista auxiliar para guardar 
+los vértices adyacentes de uno dado. */
+template <class T>
+int DiGrafica<T>::DepthFirst(int NivelProf)
+{
+    int Indice, EstadoFinal= 0, VisitaAux[MAX], Resp= 1;
+    Lista<T> Visitado, NoVisitado, ListaAux;
+    T VertiX;
+    for (Indice= 0; Indice < NumVer; Indice++)
+        VisitaAux[Indice]= 0;
+
+    /* Se guarda el primer vértice (representa el estado inicial) de la 
+    digráfica en la lista NoVisitado. */
+    NoVisitado.InsertaFinal(Vertices[0]);
+    
+    /* En el arreglo auxiliar VisitaAux se indica que el primer vértice 
+    ya fue visitado, para evitar caer en ciclos. */
+    VisitaAux[0]= 1;
+    
+    /* Se repiten los pasos del algoritmo de búsqueda mientras no se llegue 
+    al estado final y mientras queden elementos en la lista NoVisitado. */
+    Indice= 0;
+    while (!NoVisitado.ListaVacia() && !EstadoFinal)
+    {
+        /* Se saca el primer elemento de NoVisitado. */
+        VertiX= NoVisitado.EliminaPrimero();
+        
+        /* Se evalúa si el vértice no está en Visitado y si no se alcanzó 
+        la profundidad limite. */
+        if (!Visitado.BuscaDesordenada(VertiX) && Indice < NivelProf)
+        {
+            Visitado.InsertaFinal(VertiX);
+
+            /* Se obtienen sus vértices adyacentes. */
+            ListaAux= VerticesAdyacentes(BuscaVertice(VertiX));
+            while (!ListaAux.ListaVacia() && !EstadoFinal)
+            {
+                VertiX= ListaAux.EliminaPrimero();
+                if (BuscaVertice(VertiX) != NumVer-1 && !VisitaAux[BuscaVertice(VertiX)])
+                {
+                    NoVisitado.InsertaInicio(VertiX);
+                    VisitaAux[BuscaVertice(VertiX)]= 1;
+                }
+                /* Se evalúa si se llegó al último vértice (representa el
+                restado final). */
+                else
+                    if (BuscaVertice(VertiX) == NumVer-1) 
+                    {
+                        Visitado.InsertaFinal(VertiX);
+                        EstadoFinal= 1;
+                    }
+            }
+            Indice++;
+        }
+    }
+    /* Si se llegó al estado final se imprime la secuencia de vértices visitados. */
+    if (EstadoFinal)
+        Visitado.ImprimeIterativo();
+    else
+        Resp= 0;
+    
+    return Resp;
 }
 
 #endif /* _DIGRAFICA_H_ */
