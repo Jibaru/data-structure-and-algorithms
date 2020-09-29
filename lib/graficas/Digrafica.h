@@ -51,6 +51,7 @@ public:
     int BuscaVertice(T VertiDato);
     Lista<T> VerticesAdyacentes(int VertiDato);
     int DepthFirst(int NivelProf);
+    int BreadthFirst();
 
 };
 
@@ -419,6 +420,77 @@ int DiGrafica<T>::DepthFirst(int NivelProf)
     else
         Resp= 0;
     
+    return Resp;
+}
+
+/* Este método busca una solución (estado final) de un problema 
+representado por medio de una gráfica. Visita todos los vértices de un 
+mismo nivel antes de pasar al siguiente. Regresa uno si llega al estado 
+meta o cero en caso contrario. Se usan atributos de la clase como el 
+número y nombre de los vértices. Además, se declaran tres objetos de
+la clase Lista para almacenar los vértices visitados, los pendientes de 
+visitar y los adyacentes de un nodo dado. */
+template <class T>
+int DiGrafica<T>::BreadthFirst()
+{
+    int Indice, EstadoFinal= 0, VisitaAux[MAX], Resp= 1;
+    Lista<T> Novisitado, Visitado, ListaAux;
+    T VertiX;
+    /* El arreglo VisitaAux es un arreglo en el cual se indica si un nodo 
+    ya fue expandido. */
+    for (Indice= 0; Indice < NumVer; Indice++)
+        VisitaAux[Indice]= 0;
+
+    /* Se guarda el primer vértice de la gráfica en la lista NoVisitado. */
+    NoVisitado.InsertaFinal(Vertices[0]);
+    VisitaAux[0]= 1;
+
+    /* Ciclo que se ejecuta mientras no se llegue al estado final y
+    queden vértices por visitar. */
+    while (!NoVisitado.ListaVacia() && !EstadoFinal)
+    {
+        /* Saca el primer vértice de la lista NoVisitado. */
+        VertiX= NoVisitado.RegresaPrimero()->RegresaInfo();
+        NoVisitado.EliminaPrimero();
+        /* Se evalúa que el vértice no esté en la lista Visitado para 
+        evitar ciclos. */
+        if (!Visitado.BuscaDesordenada(VertiX))
+        {
+            Visitado.InsertaFinal(VertiX);
+            /* Se obtienen los vértices adyacentes del vértice visitado. */
+            ListaAux= VerticesAdyacentes(BuscaVertice(VertiX));
+            
+            while (!ListaAux.ListaVacia() && !EstadoFinal)
+            {
+                VertiX= ListaAux.RegresaPrimero()->RegresaInfo();
+                ListaAux.EliminaPrimero();
+                /* Si el sucesor no es el estado final y no está en 
+                Visitado entonces se guarda en la lista NoVisitado para 
+                que posteriormente se revise. */
+                if (BuscaVertice(VertiX) != NumVer-1 && !VisitaAux[BuscaVertice(VertiX)])
+                {
+                    NoVisitado.InsertaFinal(VertiX);
+                    VisitaAux[BuscaVertice(VertiX)]= 1;
+                }
+                else
+                    if (BuscaVertice(VertiX) == NumVer - 1)
+                    {
+                        Visitado.InsertaFinal(VertiX);
+                        EstadoFinal= 1;
+                    }
+            }
+        }
+    } 
+    /* Si se llegó al estado final se imprime la secuencia de vértices 
+    visitados. */
+    if (EstadoFinal)
+    {
+        Visitado.ImprimeIterativo();
+        return 1;
+    }
+    else
+        Resp= 0;
+        
     return Resp;
 }
 
