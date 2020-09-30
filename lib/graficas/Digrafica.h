@@ -382,7 +382,7 @@ int DiGrafica<T>::DepthFirst(int NivelProf)
     while (!NoVisitado.ListaVacia() && !EstadoFinal)
     {
         /* Se saca el primer elemento de NoVisitado. */
-        Vertix= NoVisitado.RegresaPrimero()->RegresaInfo();
+        VertiX= NoVisitado.RegresaPrimero()->RegresaInfo();
         NoVisitado.EliminaPrimero();
         
         /* Se evalúa si el vértice no está en Visitado y si no se alcanzó 
@@ -395,7 +395,7 @@ int DiGrafica<T>::DepthFirst(int NivelProf)
             ListaAux= VerticesAdyacentes(BuscaVertice(VertiX));
             while (!ListaAux.ListaVacia() && !EstadoFinal)
             {
-                Vertix= ListaAux.RegresaPrimero()->RegresaInfo();
+                VertiX= ListaAux.RegresaPrimero()->RegresaInfo();
                 ListaAux.EliminaPrimero();
                 if (BuscaVertice(VertiX) != NumVer-1 && !VisitaAux[BuscaVertice(VertiX)])
                 {
@@ -405,7 +405,7 @@ int DiGrafica<T>::DepthFirst(int NivelProf)
                 /* Se evalúa si se llegó al último vértice (representa el
                 restado final). */
                 else
-                    if (BuscaVertice(VertiX) == NumVer-1) 
+                    if (BuscaVertice(VertiX) == NumVer-1)
                     {
                         Visitado.InsertaFinal(VertiX);
                         EstadoFinal= 1;
@@ -434,7 +434,7 @@ template <class T>
 int DiGrafica<T>::BreadthFirst()
 {
     int Indice, EstadoFinal= 0, VisitaAux[MAX], Resp= 1;
-    Lista<T> Novisitado, Visitado, ListaAux;
+    Lista<T> NoVisitado, Visitado, ListaAux;
     T VertiX;
     /* El arreglo VisitaAux es un arreglo en el cual se indica si un nodo 
     ya fue expandido. */
